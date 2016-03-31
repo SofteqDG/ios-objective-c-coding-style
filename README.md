@@ -358,7 +358,7 @@ Constants are RECOMMENDED over in-line string literals or numbers, as they allow
 **For example:**
 
 ```objc
-static NSString * const SDCAboutViewControllerCompanyName = @"The New York Times Company";
+static NSString * const SDCAboutViewControllerCompanyName = @"SOFTEQ Development Corporation";
 
 static const CGFloat SDCImageThumbnailHeight = 50.0;
 ```
@@ -366,7 +366,7 @@ static const CGFloat SDCImageThumbnailHeight = 50.0;
 **Not:**
 
 ```objc
-#define CompanyName @"The New York Times Company"
+#define CompanyName @"SOFTEQ Development Corporation"
 
 #define thumbnailHeight 2
 ```
@@ -401,9 +401,11 @@ Values MUST NOT be compared directly to `YES`, because `YES` is defined as `1`, 
 
 ```objc
 if (!someObject) {
+    
 }
 
 if (someObject == nil) {
+    
 }
 ```
 
@@ -439,6 +441,7 @@ When working with bitmasks, the `NS_OPTIONS` macro MUST be used.
 
 ```objc
 typedef NS_OPTIONS(NSUInteger, SDCAdCategory) {
+    
     SDCAdCategoryAutos      = 1 << 0,
     SDCAdCategoryJobs       = 1 << 1,
     SDCAdCategoryRealState  = 1 << 2,
@@ -454,6 +457,7 @@ When using `enum`s, the new fixed underlying type specification MUST be used; it
 
 ```objc
 typedef NS_ENUM(NSInteger, SDCAdRequestState) {
+    
     SDCAdRequestStateInactive,
     SDCAdRequestStateLoading
 };
@@ -631,6 +635,7 @@ When coding with conditionals, the left hand margin of the code should be the "g
 - (void)someMethod {
     
     if (![someOther boolValue]) {
+    
         return;
     }
     
@@ -678,13 +683,15 @@ if (error) {
 Singleton objects SHOULD use a thread-safe pattern for creating their shared instance.
 ```objc
 + (instancetype)sharedInstance {
+    
     static id sharedInstance = nil;
-
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+    
         sharedInstance = [[[self class] alloc] init];
     });
-
+    
     return sharedInstance;
 }
 ```
