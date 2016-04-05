@@ -770,6 +770,7 @@ Singleton objects SHOULD use a thread-safe pattern for creating their shared ins
 ```objc
 + (instancetype)sharedInstance {
     static id sharedInstance = nil;
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class] alloc] init];
