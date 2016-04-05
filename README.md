@@ -380,15 +380,7 @@ Why? Even if you declared a property as `NSString` somebody might pass in an ins
 @property (strong, nonatomic) NSString *tutorialName;
 ```
 
-For "read only" properties the `readonly` keyword SHOULD be specified after the atomicity.
-
-**For example:**
-
-```objc
-@property (strong, nonatomic, readonly) NSString *tutorialName;
-```
-
-Use `@dynamic` statement for properties which value should be calculated at runtime (calculated properties). `@dynamic` statement is a way to inform the system not to generate getters/setters for the property. You MUST write your own implementation of getter/setter for such properties depending on property attributes.
+Use `@dynamic` statement for properties which value should be calculated at runtime (calculated properties). `@dynamic` statement is a way to inform the system not to generate getters/setters for the property and a backing instance variable. You MUST write your own implementation of getter/setter for such properties depending on property attributes.
 
 ### Private Properties
 
@@ -408,20 +400,28 @@ Private properties SHOULD be declared in class extensions (anonymous categories)
 
 ## Protocols
 
-In a [delegate or data source protocol](https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html), the first parameter to each method SHOULD be the object sending the message.
+In a [delegate or data source protocol](https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html), the first parameter to each method MUST be the object sending the message.
 
 This helps disambiguate in cases when an object is the delegate for multiple similarly-typed objects, and it helps clarify intent to readers of a class implementing these delegate methods.
 
 **For example:**
 
 ```objc
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+@class SDCDownloader;
+
+@protocol SDCDownloaderDelegate <NSObject>
+- (void)downloader:(SDCDownloader *)downloader didFinishDownloading:(NSURL *)fileURL;
+@end
 ```
 
 **Not:**
 
 ```objc
-- (void)didSelectTableRowAtIndexPath:(NSIndexPath *)indexPath;
+@class SDCDownloader;
+
+@protocol SDCDownloaderDelegate <NSObject>
+- (void)downloaderDidFinishDownloading:(NSURL *)fileURL;
+@end
 ```
 
 ## Categories
@@ -504,7 +504,7 @@ const CGFloat SDCImageThumbnailHeight = 50.0;
 
 ```objc
 NSArray *names = @[@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul"];
-NSDictionary *productManagers = @{@"iPhone" : @"Kate", @"iPad" : @"Kamal", @"Mobile Web" : @"Bill"};
+NSDictionary *productManagers = @{@"iPhone": @"Kate", @"iPad": @"Kamal", @"Mobile Web": @"Bill"};
 NSNumber *shouldUseLiterals = @YES;
 NSNumber *buildingZIPCode = @10018;
 ```
@@ -553,7 +553,7 @@ If the name of a `BOOL` property is expressed as an adjective, the property’s 
 **For example:**
 
 ```objc
-@property (assign, getter=isEditable) BOOL editable;
+@property (assign, nonatomic, getter=isEditable) BOOL editable;
 ```
 
 _Text and example taken from the [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE)._
