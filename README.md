@@ -180,7 +180,7 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 
 @end
 
-@interface SDCDownloader
+@interface SDCDownloader : NSObject
 
 @property (assign, nonatomic) NSInteger timeoutInterval;
 @property (weak, nonatomic) id<SDCDownloaderDelegate> delegate;
@@ -199,7 +199,7 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 - (void)downloader:(SDCDownloader *)downloader didResumeDownloading:(NSURL *)fileURL;
 @end
 
-@interface SDCDownloader
+@interface SDCDownloader :NSObject
 @property (assign, nonatomic) NSInteger timeoutInterval;
 @property (weak, nonatomic) id < SDCDownloaderDelegate > delegate;
 
@@ -377,7 +377,6 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 
 ```objc
 @interface SDCSection : NSObject {
-    
     NSString *headline;
     NSInteger tag;
 }
