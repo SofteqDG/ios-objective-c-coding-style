@@ -46,21 +46,44 @@ Here are some of the documents from Apple that informed the style guide. If some
 
 ## Language
 
-US English should be used.
+US English MUST be used.
 
-**Preferred:**
+**For example:**
 ```objc
 UIColor *myColor = [UIColor whiteColor];
 ```
 
-**Not Preferred:**
+**Not:**
 ```objc
 UIColor *myColour = [UIColor whiteColor];
 ```
 
 ## Code Organization
 
-Use `#pragma mark -` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
+Length of the one line of code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code is not fit in 120 symbols:
+
+**TO BE DISCUSSED**
+
+Use `#warning` or `#pragma message` instead of `TODO` comments.
+
+```objc
+#pragma message "'someMethod' method should be refactored"
+
+- (void)someMethod {
+
+    // Do something
+}
+```
+
+Use `#error` if you need to break a build process under some circumstances.
+
+```objc
+#ifndef API_VERSION
+#error "API_VERISON is undefined!"
+#endif
+```
+
+Use `#pragma mark` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
 
 ```objc
 #pragma mark - Lifecycle
@@ -126,7 +149,7 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 
 ## Spacing
 
-* Indentation MUST use 4 spaces. Never indent with tabs. Be sure to set this preference in Xcode.
+* Indentation MUST use 4 spaces. Never indent with tabs. Be sure to set these preferences in the `Xcode → Preferences → Text Editing → Indentation`
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) MUST open on the same line as the statement. Braces MUST close on a new line.
 * There SHOULD be exactly one blank line after the opening bracket to aid in visual clarity and organization.
 
@@ -171,7 +194,7 @@ UIButton *settingsButton;
 **Not**
 
 ```objc
-UIButton *setBut;
+UIButton *settBut;
 ```
 
 A three letter prefix (e.g., `SDC`) MUST be used for class names and constants, however MAY be omitted for Core Data entity names. Constants MUST be camel-case with all words capitalized and prefixed by the related class name for clarity. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12).
