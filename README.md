@@ -341,6 +341,7 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 
 Property attributes SHOULD be explicitly listed, and will help new programmers when reading the code.  
 The order of property attributes should be:
+
 1. storage (`weak`, `strong`, `assign`)
 2. atomicity (`atomic`, `nonatomic`)
 3. mutability (`readonly`, `readwrite`)
@@ -749,7 +750,6 @@ CGFloat height = frame.size.height;
     if (self) {
         // Custom initialization
     }
-
     return self;
 }
 ```
