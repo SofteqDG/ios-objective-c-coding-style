@@ -22,7 +22,6 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Underscores](#underscores)
 * [Methods](#methods)
 * [Variables](#variables)
- * [Variable Qualifiers](#variable-qualifiers)
 * [Properties](#properties)
  * [Property Attributes](#property-attributes)
  * [Private Properties](#private-properties)
@@ -301,10 +300,6 @@ Single letter variable names are NOT RECOMMENDED, except as simple counter varia
 
 Asterisks indicating a type is a pointer MUST be “attached to” the variable name. **For example,** `NSString *text` **not** `NSString* text` or `NSString * text`, except in the case of constants (`NSString * const SDCConstantString`).
 
-### Variable Qualifiers
-
-When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifier (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) SHOULD be placed between the asterisks and the variable name, e.g., `NSString * __weak text`. 
-
 ## Properties
 
 Property definitions SHOULD be used in place of naked instance variables whenever possible. Direct instance variable access SHOULD be avoided except in initializer methods (`init`, `initWithCoder:`, etc…), `dealloc` methods and within custom setters and getters. For more information, see [Apple’s docs on using accessor methods in initializer methods and `dealloc`](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6).
@@ -365,6 +360,8 @@ For "read only" properties the `readonly` keyword SHOULD be specified after the 
 ```objc
 @property (strong, nonatomic, readonly) NSString *tutorialName;
 ```
+
+Use `@dynamic` statement for properties which value should be calculated at runtime (calculated properties). `@dynamic` statement is a way to inform the system not to generate getters/setters for the property. You MUST write your own implementation of getter/setter for such properties depending on property attributes.
 
 ### Private Properties
 
