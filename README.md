@@ -60,9 +60,9 @@ UIColor *myColour = [UIColor whiteColor];
 
 ## Code Organization
 
-Length of the one line of code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code is not fit in 120 symbols:
+Length of the one line of code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code does not fit in 120 symbols:
 
-**TO BE DISCUSSED**
+**TBD**
 
 Use `#warning` or `#pragma message` instead of `TODO` comments.
 
@@ -162,7 +162,53 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 ## Spacing
 
 * Indentation MUST use 4 spaces. Never indent with tabs. Be sure to set these preferences in the `Xcode → Preferences → Text Editing → Indentation`
+* There MUST be a blank line between the `@interface`, `@implementation`, `@protocol` statements and `@end` statement.
+* There MUST be a blank line before and after the  `@interface`, `@implementation`, `@protocol`,  `@end` statements.
+* There MUST NOT be a space between brackets and supported protocols declaration.
+* There MUST NOT be a space between object type and supported protocols for properties and variables. 
+
+**For example:**
+
+```objc
+@class SDCDownloader;
+@protocol SDCDownloaderDelegate;
+
+@protocol SDCDownloaderDelegate <NSObject>
+
+- (void)downloader:(SDCDownloader *)downloader didFinishDownloading:(NSURL *)fileURL;
+- (void)downloader:(SDCDownloader *)downloader didResumeDownloading:(NSURL *)fileURL;
+
+@end
+
+@interface SDCDownloader
+
+@property (assign, nonatomic) NSInteger timeoutInterval;
+@property (weak, nonatomic) id<SDCDownloaderDelegate> delegate;
+
+@end
+```
+
+**Not:**
+
+```objc
+@class SDCDownloader;
+@protocol SDCDownloaderDelegate;
+
+@protocol SDCDownloaderDelegate <NSObject>
+- (void)downloader:(SDCDownloader *)downloader didFinishDownloading:(NSURL *)fileURL;
+- (void)downloader:(SDCDownloader *)downloader didResumeDownloading:(NSURL *)fileURL;
+@end
+
+@interface SDCDownloader
+@property (assign, nonatomic) NSInteger timeoutInterval;
+@property (weak, nonatomic) id < SDCDownloaderDelegate > delegate;
+
+@end
+```
+
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) MUST open on the same line as the statement. Braces MUST close on a new line.
+* There MUST be exactly one blank line between methods to aid in visual clarity and organization.
+* Whitespace within methods MAY separate functionality, though this inclination often indicates an opportunity to split the method into several, smaller methods.
 
 **For example:**
 
@@ -182,8 +228,6 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 }
 ```
 
-* There SHOULD be exactly one blank line between methods to aid in visual clarity and organization.
-* Whitespace within methods MAY separate functionality, though this inclination often indicates an opportunity to split the method into several, smaller methods.
 * Prefer using auto-synthesis. But if necessary, `@synthesize` and `@dynamic` MUST each be declared on new lines in the implementation.
 
 ## Naming
@@ -267,7 +311,7 @@ The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple par
 - (instancetype)initWith:(int)width and:(int)height;  // Never do this.
 ```
 
-Use `NSParameterAssert` for arguments that are critical for correct method execution
+Use `NSParameterAssert` for arguments that are critical for correct method execution.
 
 **For example:**
 
@@ -279,7 +323,7 @@ Use `NSParameterAssert` for arguments that are critical for correct method execu
 }
 ```
 
-Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "block" method calls on your interface
+Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "block" method calls on your interface.
 
 **For example:**
 
@@ -287,7 +331,7 @@ Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "
 - (instancetype)init NS_UNAVAILABLE;
 ```
 
-Use `NS_REQUIRES_SUPER` macro in the end of the method declaration if the `super` method needs to be called by subclass. Once a method declaration is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method
+Use `NS_REQUIRES_SUPER` macro in the end of the method declaration if the `super` method needs to be called by subclass. Once a method declaration is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method.
 
 **For example:**
 
@@ -324,6 +368,7 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 @interface SDCSection: NSObject
 
 @property (strong, nonatomic, readonly) NSString *headline;
+@property (assign, nonatomic) NSInteger tag;
 
 @end
 ```
@@ -332,8 +377,9 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 
 ```objc
 @interface SDCSection : NSObject {
-
+    
     NSString *headline;
+    NSInteger tag;
 }
 ```
 ### Property Attributes
@@ -394,7 +440,10 @@ This helps disambiguate in cases when an object is the delegate for multiple sim
 @class SDCDownloader;
 
 @protocol SDCDownloaderDelegate <NSObject>
+
 - (void)downloader:(SDCDownloader *)downloader didFinishDownloading:(NSURL *)fileURL;
+- (void)downloader:(SDCDownloader *)downloader didResumeDownloading:(NSURL *)fileURL;
+
 @end
 ```
 
@@ -404,7 +453,10 @@ This helps disambiguate in cases when an object is the delegate for multiple sim
 @class SDCDownloader;
 
 @protocol SDCDownloaderDelegate <NSObject>
+
 - (void)downloaderDidFinishDownloading:(NSURL *)fileURL;
+- (void)downloaderDidResumeDownloading:(NSURL *)fileURL;
+
 @end
 ```
 
