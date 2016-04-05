@@ -37,7 +37,6 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Case Statements](#case-statements)
 * [CGRect Functions](#cgrect-functions)
 * [Init & Dealloc](#init-and-dealloc)
-* [Golden Path](#golden-path)
 * [Error handling](#error-handling)
 * [Singletons](#singletons)
 * [Imports](#imports)
@@ -751,32 +750,6 @@ CGFloat height = frame.size.height;
         // Custom initialization
     }
     return self;
-}
-```
-
-## Golden Path
-
-When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are OK.
-
-**For example:**
-
-```objc
-- (void)someMethod {
-    if (![someOther boolValue]) {
-        return;
-    }
-    
-    //Do something important
-}
-```
-
-**Not:**
-
-```objc
-- (void)someMethod {
-    if ([someOther boolValue]) {
-        //Do something important
-    }
 }
 ```
 
