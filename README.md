@@ -155,7 +155,7 @@ When they are needed, comments SHOULD be used to explain **why** a particular pi
 
 **For example:**
 ```objc
-// workaround: http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different
+// workaround: http://stackoverflow.com/a/3927811
 ```
 
 Block comments are NOT RECOMMENDED, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
@@ -339,13 +339,22 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 ```
 ### Property Attributes
 
-Property attributes SHOULD be explicitly listed, and will help new programmers when reading the code.  The order of properties should be storage then atomicity, which is consistent with automatically generated code when connecting UI elements from Interface Builder.
+Property attributes SHOULD be explicitly listed, and will help new programmers when reading the code.  
+The order of property attributes should be:
+1. storage (`weak`, `strong`, `assign`)
+2. atomicity (`atomic`, `nonatomic`)
+3. mutability (`readonly`, `readwrite`)
+4. custom getter/setter
+
+This order is consistent with automatically generated code when connecting UI elements from Interface Builder.
 
 **For Example:**
 
 ```objc
-@property (weak,   nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) NSString *tutorialName;
+@property (strong, nonatomic, readonly) NSString *currentDateString;
+@property (assign, nonatomic, readonly, getter=isLoaded) BOOL loaded;
 ```
 
 **Not:**
