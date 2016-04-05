@@ -237,9 +237,9 @@ Local variables should not contain underscores.
 
 ## Methods
 
-In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument.
+In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. Avoid usage of the `do`,  `get`,  `prepare` prefixes in the method names.
 
-The usage of the word "and" is reserved.  It should not be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
+The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
 **For Example:**
 ```objc
@@ -258,6 +258,30 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 - (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;
 - (instancetype)initWith:(int)width and:(int)height;  // Never do this.
 ```
+
+Use `NSParameterAssert` for arguments that are critical for correct method execution
+
+```objc
+- (void)parseData:(NSData *)data {
+
+    NSParameterAssert(data);
+    
+    // Parsing logic
+}
+```
+
+Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "block" method calls on your interface
+
+```objc
+- (instancetype)init NS_UNAVAILABLE;
+```
+
+Use `NS_REQUIRES_SUPER` macro in the end of the method declaration if the `super` method needs to be called by subclass. Once a method declaration is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method
+
+```objc
+- (instancetype)someMethod NS_REQUIRES_SUPER;
+```
+
 
 ## Variables
 
