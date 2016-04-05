@@ -457,6 +457,16 @@ static const CGFloat SDCImageThumbnailHeight = 50.0;
 #define thumbnailHeight 2
 ```
 
+Public constants of interface MUST be declared as `extern` in the header file. Use `FOUNDATION_EXTERN` macro for such constants.
+
+```objc
+// Declaration in the header file.
+FOUNDATION_EXTERN const CGFloat SDCImageThumbnailHeight;
+
+// Definition in the implementation file.
+const CGFloat SDCImageThumbnailHeight = 50.0;
+```
+
 ## Literals
 
 `NSString`, `NSDictionary`, `NSArray`, and `NSNumber` literals SHOULD be used whenever creating immutable instances of those objects. Pay special care that `nil` values not be passed into `NSArray` and `NSDictionary` literals, as this will cause a crash.
