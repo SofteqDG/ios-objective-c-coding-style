@@ -279,7 +279,7 @@ Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "
 Use `NS_REQUIRES_SUPER` macro in the end of the method declaration if the `super` method needs to be called by subclass. Once a method declaration is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method
 
 ```objc
-- (instancetype)someMethod NS_REQUIRES_SUPER;
+- (void)someMethod NS_REQUIRES_SUPER;
 ```
 
 
@@ -326,6 +326,44 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 
     NSString *headline;
 }
+```
+### Property Attributes
+
+Property attributes SHOULD be explicitly listed, and will help new programmers when reading the code.  The order of properties should be storage then atomicity, which is consistent with automatically generated code when connecting UI elements from Interface Builder.
+
+**For Example:**
+
+```objc
+@property (weak,   nonatomic) IBOutlet UIView *containerView;
+@property (strong, nonatomic) NSString *tutorialName;
+```
+
+**Not:**
+
+```objc
+@property (nonatomic, weak) IBOutlet UIView *containerView;
+@property (nonatomic) NSString *tutorialName;
+```
+
+Properties with mutable counterparts (e.g. NSString) should prefer `copy` instead of `strong`. 
+Why? Even if you declared a property as `NSString` somebody might pass in an instance of an `NSMutableString` and then change it without you noticing that.  
+
+**For Example:**
+
+```objc
+@property (copy, nonatomic) NSString *tutorialName;
+```
+
+**Not Preferred:**
+
+```objc
+@property (strong, nonatomic) NSString *tutorialName;
+```
+
+For "read only" properties the `readonly` keyword SHOULD be specified after the atomicity.
+
+```objc
+@property (strong, nonatomic, readonly) NSString *tutorialName;
 ```
 
 ### Private Properties
