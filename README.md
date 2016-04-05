@@ -241,7 +241,7 @@ In method signatures, there SHOULD be a space after the method type (-/+ symbol)
 
 The usage of the word "and" is reserved.  It should not be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
-**Preferred:**
+**For Example:**
 ```objc
 - (void)setExampleText:(NSString *)text image:(UIImage *)image;
 - (void)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;
@@ -249,10 +249,10 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 - (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;
 ```
 
-**Not Preferred:**
+**Not:**
 
 ```objc
--(void)setT:(NSString *)text i:(UIImage *)image;
+- (void)setT:(NSString *)text i:(UIImage *)image;
 - (void)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;
 - (id)taggedView:(NSInteger)tag;
 - (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;
@@ -270,7 +270,7 @@ Variables SHOULD be named descriptively, with the variable’s name clearly comm
 * `NSAttributedString *titleAttributedString`: A title, already formatted for display. _`AttributedString` hints that this value is not just a vanilla title, and adding it could be a reasonable choice depending on context._
 * `NSDate *now`: _No further clarification is needed._
 * `NSDate *lastModifiedDate`: Simply `lastModified` can be ambiguous; depending on context, one could reasonably assume it is one of a few different types.
-* `NSURL *URL` vs. `NSString *URLString`: In situations when a value can reasonably be represented by different classes, it is often useful to disambiguate in the variable’s name.
+* `NSURL *url` vs. `NSString *urlString`: In situations when a value can reasonably be represented by different classes, it is often useful to disambiguate in the variable’s name.
 * `NSString *releaseDateString`: Another example where a value could be represented by another class, and the name can help disambiguate.
 
 Single letter variable names are NOT RECOMMENDED, except as simple counter variables in loops.
@@ -362,7 +362,9 @@ Methods and properties added in categories MUST be named with an app- or organiz
 
 ```objc
 @interface NSArray (SDCAccessors)
+
 - (id)sdc_objectOrNilAtIndex:(NSUInteger)index;
+
 @end
 ```
 
@@ -370,7 +372,9 @@ Methods and properties added in categories MUST be named with an app- or organiz
 
 ```objc
 @interface NSArray (SDCAccessors)
+
 - (id)objectOrNilAtIndex:(NSUInteger)index;
+
 @end
 ```
 
