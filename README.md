@@ -48,11 +48,13 @@ Here are some of the documents from Apple that informed the style guide. If some
 US English MUST be used.
 
 **For example:**
+
 ```objc
 UIColor *myColor = [UIColor whiteColor];
 ```
 
 **Not:**
+
 ```objc
 UIColor *myColour = [UIColor whiteColor];
 ```
@@ -65,6 +67,8 @@ Length of the one line of code SHOULD be limited to **120** symbols to aid in vi
 
 Use `#warning` or `#pragma message` instead of `TODO` comments.
 
+**For example:**
+
 ```objc
 #pragma message "'someMethod' method should be refactored"
 
@@ -76,6 +80,8 @@ Use `#warning` or `#pragma message` instead of `TODO` comments.
 
 Use `#error` if you need to break a build process under some circumstances.
 
+**For example:**
+
 ```objc
 #ifndef API_VERSION
 #error "API_VERISON is undefined!"
@@ -83,6 +89,8 @@ Use `#error` if you need to break a build process under some circumstances.
 ```
 
 Use `#pragma mark` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
+
+**For example:**
 
 ```objc
 #pragma mark - Lifecycle
@@ -129,12 +137,14 @@ Use `#pragma mark` to categorize methods in functional groupings and protocol/de
 Dot notation is RECOMMENDED over bracket notation for getting and setting properties.
 
 **For example:**
+
 ```objc
 view.backgroundColor = [UIColor orangeColor];
 [UIApplication sharedApplication].delegate;
 ```
 
 **Not:**
+
 ```objc
 [view setBackgroundColor:[UIColor orangeColor]];
 UIApplication.sharedApplication.delegate;
@@ -241,6 +251,7 @@ In method signatures, there SHOULD be a space after the method type (-/+ symbol)
 The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
 **For Example:**
+
 ```objc
 - (void)setExampleText:(NSString *)text image:(UIImage *)image;
 - (void)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;
@@ -260,6 +271,8 @@ The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple par
 
 Use `NSParameterAssert` for arguments that are critical for correct method execution
 
+**For example:**
+
 ```objc
 - (void)parseData:(NSData *)data {
 
@@ -271,11 +284,15 @@ Use `NSParameterAssert` for arguments that are critical for correct method execu
 
 Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "block" method calls on your interface
 
+**For example:**
+
 ```objc
 - (instancetype)init NS_UNAVAILABLE;
 ```
 
 Use `NS_REQUIRES_SUPER` macro in the end of the method declaration if the `super` method needs to be called by subclass. Once a method declaration is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method
+
+**For example:**
 
 ```objc
 - (void)someMethod NS_REQUIRES_SUPER;
@@ -349,13 +366,15 @@ Why? Even if you declared a property as `NSString` somebody might pass in an ins
 @property (copy, nonatomic) NSString *tutorialName;
 ```
 
-**Not Preferred:**
+**Not:**
 
 ```objc
 @property (strong, nonatomic) NSString *tutorialName;
 ```
 
 For "read only" properties the `readonly` keyword SHOULD be specified after the atomicity.
+
+**For example:**
 
 ```objc
 @property (strong, nonatomic, readonly) NSString *tutorialName;
@@ -459,6 +478,8 @@ static const CGFloat SDCImageThumbnailHeight = 50.0;
 
 Public constants of interface MUST be declared as `extern` in the header file. Use `FOUNDATION_EXTERN` macro for such constants.
 
+**For example:**
+
 ```objc
 // Declaration in the header file.
 FOUNDATION_EXTERN const CGFloat SDCImageThumbnailHeight;
@@ -533,7 +554,7 @@ _Text and example taken from the [Cocoa Naming Guidelines](https://developer.app
 
 When working with bitmasks, the `NS_OPTIONS` macro MUST be used.
 
-**Example:**
+**For example:**
 
 ```objc
 typedef NS_OPTIONS(NSUInteger, SDCAdCategory) {
@@ -549,7 +570,7 @@ typedef NS_OPTIONS(NSUInteger, SDCAdCategory) {
 
 When using `enum`s, the new fixed underlying type specification MUST be used; it provides stronger type checking and code completion. The SDK includes a macro to facilitate and encourage use of fixed underlying types: `NS_ENUM()`.
 
-**Example:**
+**For example:**
 
 ```objc
 typedef NS_ENUM(NSInteger, SDCAdRequestState) {
@@ -564,6 +585,7 @@ typedef NS_ENUM(NSInteger, SDCAdRequestState) {
 Conditional bodies MUST use braces even when a conditional body could be written without braces (e.g., it is one line only) to prevent [errors](https://github.com/SDCimes/objective-c-style-guide/issues/26#issuecomment-22074256). These errors include adding a second line and expecting it to be part of the if-statement. Another, [even more dangerous defect](http://programmers.stackexchange.com/a/16530) can happen where the line “inside” the if-statement is commented out, and the next line unwittingly becomes part of the if-statement. In addition, this style is more consistent with all other conditionals, and therefore more easily scannable.
 
 **For example:**
+
 ```objc
 if (!error) {
 
@@ -572,6 +594,7 @@ if (!error) {
 ```
 
 **Not:**
+
 ```objc
 if (!error)
     return success;
@@ -585,14 +608,16 @@ if (!error) return success;
 
 ## Ternary Operator
 
-The intent of the ternary operator, `?` , is to increase clarity or code neatness. The ternary SHOULD only evaluate a single condition per expression. Evaluating multiple conditions is usually more understandable as an if statement or refactored into named variables.
+The intent of the ternary operator, `?` , is to increase clarity or code neatness. The ternary SHOULD only evaluate a single condition per expression. Evaluating multiple conditions is usually more understandable as an if statement or refactored into named variables. The ternary SHOULD be wrapped in the round brackets.
 
 **For example:**
+
 ```objc
 result = (a > b) ? (x) : (y);
 ```
 
 **Not:**
+
 ```objc
 result = a > b ? x = c > d ? c : d : y;
 ```
@@ -601,6 +626,8 @@ result = a > b ? x = c > d ? c : d : y;
 
 Braces are not required for case statements, unless enforced by the complier.  
 When a case contains more than one line, braces should be added.
+
+**For example:**
 
 ```objc
 switch (condition) {
@@ -632,6 +659,8 @@ switch (condition) {
 
 There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the 'break' statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
 
+**For example:**
+
 ```objc
 switch (condition) {
     
@@ -650,6 +679,8 @@ switch (condition) {
 ```
 
 When using an enumerated type for a switch, 'default' is not needed.   For example:
+
+**For example:**
 
 ```objc
 SDCLeftMenuTopItemType menuType = SDCLeftMenuTopItemMain;
@@ -705,15 +736,19 @@ CGFloat height = frame.size.height;
 
 ## init and dealloc
 
-`dealloc` methods SHOULD be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements. `init` methods SHOULD be placed directly below the `dealloc` methods of any class.
+`dealloc` methods SHOULD be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements.
 
-`init` methods should be structured like this:
+ `init` methods SHOULD be placed directly below the `dealloc` methods of any class.
+`init` methods SHOULD return `instancetype` in general case and SHOULD be structured like this:
+
+**For example:**
 
 ```objc
 - (instancetype)init {
 
     self = [super init]; // or call the designated initializer
-
+    if (self) {
+    
         // Custom initialization
     }
 
@@ -725,7 +760,7 @@ CGFloat height = frame.size.height;
 
 When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are OK.
 
-**Preferred:**
+**For example:**
 
 ```objc
 - (void)someMethod {
@@ -739,7 +774,7 @@ When coding with conditionals, the left hand margin of the code should be the "g
 }
 ```
 
-**Not Preferred:**
+**Not:**
 
 ```objc
 - (void)someMethod {
@@ -756,6 +791,7 @@ When coding with conditionals, the left hand margin of the code should be the "g
 When methods return an error parameter by reference, code MUST switch on the returned value and MUST NOT switch on the error variable.
 
 **For example:**
+
 ```objc
 NSError *error;
 if (![self trySomethingWithError:&error]) {
@@ -765,6 +801,7 @@ if (![self trySomethingWithError:&error]) {
 ```
 
 **Not:**
+
 ```objc
 NSError *error;
 [self trySomethingWithError:&error];
@@ -777,6 +814,9 @@ if (error) {
 ## Singletons
 
 Singleton objects SHOULD use a thread-safe pattern for creating their shared instance.
+
+**For example:**
+
 ```objc
 + (instancetype)sharedInstance {
     
@@ -798,6 +838,8 @@ This will prevent [possible and sometimes frequent crashes](http://cocoasamurai.
 If there is more than one import statement, statements MUST be grouped [together](http://ashfurrow.com/blog/structuring-modern-objective-c). Groups MAY be commented.
 
 Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#using-modules) syntax.
+
+**For example:**
 
 ```objc
 // Frameworks
