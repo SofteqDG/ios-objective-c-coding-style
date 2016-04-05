@@ -364,21 +364,6 @@ This order is consistent with automatically generated code when connecting UI el
 @property (nonatomic) NSString *tutorialName;
 ```
 
-Properties with mutable counterparts (e.g. NSString) should prefer `copy` instead of `strong`. 
-Why? Even if you declared a property as `NSString` somebody might pass in an instance of an `NSMutableString` and then change it without you noticing that.  
-
-**For Example:**
-
-```objc
-@property (copy, nonatomic) NSString *tutorialName;
-```
-
-**Not:**
-
-```objc
-@property (strong, nonatomic) NSString *tutorialName;
-```
-
 Use `@dynamic` statement for properties which value should be calculated at runtime (calculated properties). `@dynamic` statement is a way to inform the system not to generate getters/setters for the property and a backing instance variable. You MUST write your own implementation of getter/setter for such properties depending on property attributes.
 
 ### Private Properties
