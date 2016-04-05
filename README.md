@@ -73,7 +73,6 @@ Use `#warning` or `#pragma message` instead of `TODO` comments.
 #pragma message "'someMethod' method should be refactored"
 
 - (void)someMethod {
-
     // Do something
 }
 ```
@@ -152,7 +151,12 @@ UIApplication.sharedApplication.delegate;
 
 ## Comments
 
-When they are needed, comments SHOULD be used to explain **why** a particular piece of code does something. Any comments that are used MUST be kept up-to-date or deleted.
+When they are needed, comments SHOULD be used to explain **why** a particular piece of code does something. Any comments that are used MUST be kept up-to-date or deleted. Comments can be added for code which is hard to understand. Any workarounds (especially with link to explanation) can be marked as `workaround: <link>` in the comment.
+
+**For example:**
+```objc
+// workaround: http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different
+```
 
 Block comments are NOT RECOMMENDED, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
 
@@ -160,26 +164,21 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 
 * Indentation MUST use 4 spaces. Never indent with tabs. Be sure to set these preferences in the `Xcode → Preferences → Text Editing → Indentation`
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) MUST open on the same line as the statement. Braces MUST close on a new line.
-* There SHOULD be exactly one blank line after the opening bracket to aid in visual clarity and organization.
 
 **For example:**
 
 ```objc
 - (void)someMethog {
-	
 	// Do something
 	if (user.isHappy) {
-		
 		// Do something
 	}
 	else {
-		
 		// Do something else
 	}
 }
 
 - (void)someMethod2 {
-	
 	// Do something
 }
 ```
@@ -246,7 +245,7 @@ Local variables SHOULD NOT contain underscores.
 
 ## Methods
 
-In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. Avoid usage of the `do`,  `get`,  `prepare` prefixes in the method names.
+In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
 
 The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
@@ -275,7 +274,6 @@ Use `NSParameterAssert` for arguments that are critical for correct method execu
 
 ```objc
 - (void)parseData:(NSData *)data {
-
     NSParameterAssert(data);
     
     // Parsing logic
@@ -518,11 +516,11 @@ Values MUST NOT be compared directly to `YES`, because `YES` is defined as `1`, 
 
 ```objc
 if (!someObject) {
-    
+    // Do something
 }
 
 if (someObject == nil) {
-    
+    // Do something
 }
 ```
 
@@ -531,16 +529,16 @@ if (someObject == nil) {
 ```objc
 if (isAwesome)
 if (!someNumber.boolValue)
-if (someNumber.boolValue == NO)
 ```
 
 **Not:**
 
 ```objc
+if (someNumber.boolValue == NO)
 if (isAwesome == YES) // Never do this.
 ```
 
-If the name of a `BOOL` property is expressed as an adjective, the property’s name MAY omit the `is` prefix but should specify the conventional name for the getter.
+If the name of a `BOOL` property is expressed as an adjective, the property’s name MAY omit the `is` prefix but CAN specify the conventional name for the getter.
 
 **For example:**
 
@@ -558,7 +556,6 @@ When working with bitmasks, the `NS_OPTIONS` macro MUST be used.
 
 ```objc
 typedef NS_OPTIONS(NSUInteger, SDCAdCategory) {
-    
     SDCAdCategoryAutos      = 1 << 0,
     SDCAdCategoryJobs       = 1 << 1,
     SDCAdCategoryRealState  = 1 << 2,
@@ -574,7 +571,6 @@ When using `enum`s, the new fixed underlying type specification MUST be used; it
 
 ```objc
 typedef NS_ENUM(NSInteger, SDCAdRequestState) {
-    
     SDCAdRequestStateInactive,
     SDCAdRequestStateLoading
 };
@@ -588,7 +584,6 @@ Conditional bodies MUST use braces even when a conditional body could be written
 
 ```objc
 if (!error) {
-
     return success;
 }
 ```
@@ -613,7 +608,7 @@ The intent of the ternary operator, `?` , is to increase clarity or code neatnes
 **For example:**
 
 ```objc
-result = (a > b) ? (x) : (y);
+result = (a > b ? x : y);
 ```
 
 **Not:**
@@ -624,40 +619,59 @@ result = a > b ? x = c > d ? c : d : y;
 
 ## Case Statements
 
-Braces are not required for case statements, unless enforced by the complier.  
-When a case contains more than one line, braces should be added.
+Braces are not required for case statements, unless enforced by the complier.  Braces MUST be added for all cases if they are required for at least one `case` statement. `default` statement MUST be always included.
 
 **For example:**
 
 ```objc
 switch (condition) {
-
     case 1:
-    
         // ...
         break;
         
-    case 2: {
-    
+    case 2:
         // ...
-        // Multi-line example using braces
-        break;
-    }
-    
+        break;  
+          
     case 3:
-    
         // ...
         break;
         
     default: 
-    
         // ...
         break;
 }
 
 ```
 
-There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the 'break' statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
+or
+
+```objc
+switch (condition) {
+    case 1: {
+        // ...
+        break;
+    }
+        
+    case 2: {
+        // ...
+        break;
+    }  
+          
+    case 3: {
+        // ...
+        break;
+    }
+        
+    default: {
+        // ...
+        break;
+    }
+}
+
+```
+
+There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the `break` statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
 
 **For example:**
 
@@ -667,7 +681,6 @@ switch (condition) {
     case 1:
         // fall-through
     case 2:
-    
         // code executed for values 1 and 2
         break;
     
@@ -676,32 +689,6 @@ switch (condition) {
         break;
 }
 
-```
-
-When using an enumerated type for a switch, 'default' is not needed.   For example:
-
-**For example:**
-
-```objc
-SDCLeftMenuTopItemType menuType = SDCLeftMenuTopItemMain;
-
-switch (menuType) {
-
-    case SDCLeftMenuTopItemMain:
-    
-        // ...
-        break;
-        
-    case SDCLeftMenuTopItemShows:
-    
-        // ...
-        break;
-        
-    case SDCLeftMenuTopItemSchedule:
-    
-        // ...
-        break;
-}
 ```
 
 Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
@@ -717,8 +704,10 @@ When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, code MUST use t
 ```objc
 CGRect frame = self.view.frame;
 
-CGFloat x = CGRectGetMinX(frame);
-CGFloat y = CGRectGetMinY(frame);
+CGFloat minX = CGRectGetMinX(frame);
+CGFloat minY = CGRectGetMinY(frame);
+CGFloat maxX = CGRectGetMaxX(frame);
+CGFloat maxY = CGRectGetMaxY(frame);
 CGFloat width = CGRectGetWidth(frame);
 CGFloat height = CGRectGetHeight(frame);
 ```
@@ -728,8 +717,10 @@ CGFloat height = CGRectGetHeight(frame);
 ```objc
 CGRect frame = self.view.frame;
 
-CGFloat x = frame.origin.x;
-CGFloat y = frame.origin.y;
+CGFloat minX = frame.origin.x;
+CGFloat minY = frame.origin.y; 
+CGFloat maxX = frame.origin.x + frame.size.width;
+CGFloat maxY = frame.origin.y + frame.size.height;
 CGFloat width = frame.size.width;
 CGFloat height = frame.size.height;
 ```
@@ -745,10 +736,8 @@ CGFloat height = frame.size.height;
 
 ```objc
 - (instancetype)init {
-
     self = [super init]; // or call the designated initializer
     if (self) {
-    
         // Custom initialization
     }
 
@@ -764,9 +753,7 @@ When coding with conditionals, the left hand margin of the code should be the "g
 
 ```objc
 - (void)someMethod {
-    
     if (![someOther boolValue]) {
-    
         return;
     }
     
@@ -778,9 +765,7 @@ When coding with conditionals, the left hand margin of the code should be the "g
 
 ```objc
 - (void)someMethod {
-    
     if ([someOther boolValue]) {
-    
         //Do something important
     }
 }
@@ -795,7 +780,6 @@ When methods return an error parameter by reference, code MUST switch on the ret
 ```objc
 NSError *error;
 if (![self trySomethingWithError:&error]) {
-
     // Handle Error
 }
 ```
@@ -806,7 +790,6 @@ if (![self trySomethingWithError:&error]) {
 NSError *error;
 [self trySomethingWithError:&error];
 if (error) {
-
     // Handle Error
 }
 ```
@@ -819,12 +802,9 @@ Singleton objects SHOULD use a thread-safe pattern for creating their shared ins
 
 ```objc
 + (instancetype)sharedInstance {
-    
     static id sharedInstance = nil;
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-    
         sharedInstance = [[[self class] alloc] init];
     });
     
