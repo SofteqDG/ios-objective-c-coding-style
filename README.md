@@ -64,7 +64,7 @@ Length of the one line of code SHOULD be limited to **120** symbols to aid in vi
 
 **TBD**
 
-Use `#warning` or `#pragma message` instead of `TODO` comments.
+Use `#warning` or `#pragma message` directives instead of `TODO` comments. However be careful with `#warning` directive because it can be treated as a error depending on build settings.
 
 **For example:**
 
@@ -76,7 +76,7 @@ Use `#warning` or `#pragma message` instead of `TODO` comments.
 }
 ```
 
-Use `#error` if you need to break a build process under some circumstances.
+Use `#error` directive if you need to break a build process under some circumstances.
 
 **For example:**
 
@@ -86,7 +86,7 @@ Use `#error` if you need to break a build process under some circumstances.
 #endif
 ```
 
-Use `#pragma mark` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
+Use `#pragma mark` directive to categorize methods in functional groupings and protocol/delegate implementations. There MUST be one blank line before and after `#pragma mark` directive or set of such directives.
 
 **For example:**
 
@@ -150,14 +150,14 @@ UIApplication.sharedApplication.delegate;
 
 ## Comments
 
-When they are needed, comments SHOULD be used to explain **why** a particular piece of code does something. Any comments that are used MUST be kept up-to-date or deleted. Comments can be added for code which is hard to understand. Any workarounds (especially with link to explanation) can be marked as `workaround: <link>` in the comment.
+When they are needed, comments SHOULD be used to explain **why** a particular piece of code does something. Any comments that are used MUST be kept up-to-date or deleted. Comments CAN be added for code which is hard to understand. Any workarounds (especially with link to explanation) CAN be marked as `workaround: <link>` in the comment.
 
 **For example:**
 ```objc
 // workaround: http://stackoverflow.com/a/3927811
 ```
 
-Block comments are NOT RECOMMENDED, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
+Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
 
 ## Spacing
 
@@ -206,7 +206,7 @@ Block comments are NOT RECOMMENDED, as code should be as self-documenting as pos
 @end
 ```
 
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) MUST open on the same line as the statement. Braces MUST close on a new line.
+* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) MUST open on the same line as the statement. There MUST be a space before opening brace. Braces MUST close on a new line.
 * There MUST be exactly one blank line between methods to aid in visual clarity and organization.
 * Whitespace within methods MAY separate functionality, though this inclination often indicates an opportunity to split the method into several, smaller methods.
 
@@ -248,7 +248,7 @@ UIButton *settingsButton;
 UIButton *settBut;
 ```
 
-A minimum three letter prefix (e.g., `SDC`) MUST be used for class names and constants, however MAY be omitted for Core Data entity names. Constants MUST be camel-case with all words capitalized and prefixed by the related class name for clarity. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12).
+A minimum three letter prefix (e.g., `SDC`) MUST be used for class names and constants, however MAY be omitted for Core Data entity names. Prefix MUST be used for all Core Data entity names if you decide to use it.  Constants MUST be camel-case with all words capitalized and prefixed by the related class name for clarity. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12).
 
 **For example:**
 
@@ -282,13 +282,13 @@ id varnm;
 
 When using properties, instance variables SHOULD always be accessed and mutated using `self.`. This means that all properties will be visually distinct, as they will all be prefaced with `self.`. 
 
-An exception to this: inside initializers, the backing instance variable (i.e. _variableName) SHOULD be used directly to avoid any potential side effects of the getters/setters.
+An exception to this: inside initializers and dealloc the backing instance variable (i.e. _variableName) SHOULD be used directly to avoid any potential side effects of the getters/setters.
 
 Local variables SHOULD NOT contain underscores.
 
 ## Methods
 
-In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
+In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD NOT be a space between returned type and first method segment. There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
 
 The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
@@ -323,7 +323,7 @@ Use `NSParameterAssert` for arguments that are critical for correct method execu
 }
 ```
 
-Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "block" method calls on your interface.
+Use `NS_UNAVAILABLE` macro in the method signature if you need to "block" method calls on your interface.
 
 **For example:**
 
@@ -331,7 +331,7 @@ Use `NS_UNAVAILABLE` macro in the end of the method declaration if you need to "
 - (instancetype)init NS_UNAVAILABLE;
 ```
 
-Use `NS_REQUIRES_SUPER` macro in the end of the method declaration if the `super` method needs to be called by subclass. Once a method declaration is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method.
+Use `NS_REQUIRES_SUPER` macro in the method signature if the `super` method needs to be called by subclass. Once a method signature is appended with this macro, the compiler will produce a warning if `super` is not called by a subclass overriding the method.
 
 **For example:**
 
@@ -365,7 +365,7 @@ Property definitions SHOULD be used in place of naked instance variables wheneve
 **For example:**
 
 ```objc
-@interface SDCSection: NSObject
+@interface SDCSection : NSObject
 
 @property (strong, nonatomic, readonly) NSString *headline;
 @property (assign, nonatomic) NSInteger tag;
@@ -420,14 +420,55 @@ Private properties SHOULD be declared in class extensions (anonymous categories)
 ```objc
 @interface SDCAdvertisement ()
 
-@property (nonatomic, strong) GADBannerView *googleAdView;
-@property (nonatomic, strong) ADBannerView *iAdView;
-@property (nonatomic, strong) UIWebView *adXWebView;
+@property (strong, nonatomic) GADBannerView *googleAdView;
+@property (strong, nonatomic) ADBannerView *iAdView;
+@property (strong, nonatomic) UIWebView *adXWebView;
 
 @end
 ```
 
 ## Protocols
+
+Each protocol SHOULD be inherited from `NSObject` protocol unless you have a serious reason not to do it.
+* There SHOULD be a space between a protocol/interface name and a list of inherited/conformed protocols.
+* There SHOULD NOT be a space between property/variable type and a list of conformed protocols.
+* There SHOULD NOT be a space between braces in the list of protocols.
+
+**For example:**
+
+```objc
+@protocol SDCTimeProtocol <NSObject, NSCoding>
+
+- (uint8_t)hours;
+- (uint8_t)minutes;
+- (uint8_t)seconds;
+
+@end
+
+@interface SDCAbsoluteTime : NSObject <SDCTimeProtocol>
+
+@property (strong, nonatomic, readonly) id<SDCTimeProtocol> masterTime;
+
+@end
+```
+
+**Not:**
+
+```objc
+@protocol SDCTimeProtocol<NSObject,NSCoding>
+
+- (uint8_t)hours;
+- (uint8_t)minutes;
+- (uint8_t)seconds;
+
+@end
+
+@interface SDCAbsoluteTime : NSObject <SDCTimeProtocol >
+
+@property (strong, nonatomic, readonly) id <SDCTimeProtocol> masterTime;
+
+@end
+```
 
 In a [delegate or data source protocol](https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html), the first parameter to each method MUST be the object sending the message.
 
@@ -461,7 +502,9 @@ This helps disambiguate in cases when an object is the delegate for multiple sim
 
 ## Categories
 
-Categories are RECOMMENDED to concisely segment functionality and should be named to describe that functionality.
+Categories are RECOMMENDED to concisely segment functionality and should be named to describe that functionality. 
+* There SHOULD be a space between interface name and protocol name.
+* There SHOULD NOT be a space between braces and a name of category.
 
 **For example:**
 
@@ -473,8 +516,8 @@ Categories are RECOMMENDED to concisely segment functionality and should be name
 **Not:**
 
 ```objc
-@interface SDCAdvertisement (private)
-@interface NSString (SDCAdditions)
+@interface SDCAdvertisement ( private )
+@interface NSString(SDCAdditions)
 ```
 
 Methods and properties added in categories MUST be named with an app- or organization-specific prefix. This avoids unintentionally overriding an existing method, and it reduces the chance of two categories from different libraries adding a method of the same name. (The Objective-C runtime doesn’t specify which method will be called in the latter case, which can lead to unintended effects.)
@@ -519,7 +562,7 @@ static const CGFloat SDCImageThumbnailHeight = 50.0;
 #define thumbnailHeight 2
 ```
 
-Public constants of interface MUST be declared as `extern` in the header file. Use `FOUNDATION_EXTERN` macro for such constants.
+Public constants of interface MUST be declared as `extern` in the header file. You CAN use `FOUNDATION_EXTERN` macro for such constants.
 
 **For example:**
 
@@ -528,7 +571,7 @@ Public constants of interface MUST be declared as `extern` in the header file. U
 FOUNDATION_EXTERN const CGFloat SDCImageThumbnailHeight;
 
 // Definition in the implementation file.
-const CGFloat SDCImageThumbnailHeight = 50.0;
+const CGFloat SDCImageThumbnailHeight = 50.0f;
 ```
 
 ## Literals
@@ -664,7 +707,7 @@ result = a > b ? x = c > d ? c : d : y;
 
 ## Case Statements
 
-Braces are not required for case statements, unless enforced by the complier.  Braces MUST be added for all cases if they are required for at least one `case` statement. `default` statement MUST be always included.
+Braces are not required for `case` statements, unless enforced by complier.  Braces MUST be added for all `case` statements if they are required for at least one `case` statement. `default` statement MUST be always included.
 
 **For example:**
 
@@ -716,7 +759,7 @@ switch (condition) {
 
 ```
 
-There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the `break` statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
+There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the `break` statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through CAN be commented for coding clarity.
 
 **For example:**
 
