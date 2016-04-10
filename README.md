@@ -1,4 +1,4 @@
-# SOFTEQ Objective-C Style Guide
+﻿# SOFTEQ Objective-C Style Guide
 
 This style guide outlines the coding conventions of the iOS teams at SOFTEQ Development Corporation. 
 
@@ -691,12 +691,18 @@ if (!error) return success;
 
 ## Ternary Operator
 
-The intent of the ternary operator, `?` , is to increase clarity or code neatness. The ternary SHOULD only evaluate a single condition per expression. Evaluating multiple conditions is usually more understandable as an if statement or refactored into named variables. The ternary SHOULD be wrapped in the round brackets.
+The intent of the ternary operator, `?` , is to increase clarity or code neatness. The ternary SHOULD only evaluate a single condition per expression. Evaluating multiple conditions is usually more understandable as an if statement or refactored into named variables. The ternary MUST be wrapped in the round braces.
 
 **For example:**
 
 ```objc
 result = (a > b ? x : y);
+```
+
+or, you can use the `?:` operator to simplify ternary statements into a style similar to Ruby and Javascript's `||` operator behavior:
+
+```objc
+result = (a ?: b);
 ```
 
 **Not:**
