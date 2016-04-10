@@ -27,8 +27,8 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Private Properties](#private-properties)
 * [Blocks](#blocks)
  * [Block arguments](#block-arguments)
- * [Block as arguments](#block-as-arguments)
- * [Block as properties](#block-as-properties)
+ * [Blocks as arguments](#blocks-as-arguments)
+ * [Blocks as properties](#blocks-as-properties)
 * [Protocols](#protocols)
 * [Categories](#categories)
 * [Constants](#constants)
@@ -40,9 +40,9 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Golden Path](#golden-path)
  * [Ternary Operator](#ternary-operator)
  * [Case Statements](#case-statements)
-* [CGRect Functions](#cgrect-functions)
-* [Init & Dealloc](#init-and-dealloc)
 * [Error handling](#error-handling)
+* [Init & Dealloc](#init-and-dealloc)
+* [CGRect Functions](#cgrect-functions)
 * [Singletons](#singletons)
 * [Imports](#imports)
 * [Xcode Project](#xcode-project)
@@ -462,7 +462,7 @@ typedef void (^SDCCompletion) (id object, NSError *error);
 typedef void (^WMFCompletion) (id, NSError *);
 ```
 
-### Block as arguments
+### Blocks as arguments
 
 Block arguments SHOULD always be the last arguments for a method.
 
@@ -476,7 +476,7 @@ Block arguments SHOULD always be the last arguments for a method.
 [self doSomething:object success:^{ /* ... */ } failure:^{ /* ... */ }];
 ```
 
-### Block as properties
+### Blocks as properties
 
 Blocks SHOULD always be copied when used outside the lexical scope in which they are declared, e.g. asynchronous completion blocks. This goes for storage in a property or in a collection (i.e. NSArray, NSDictionary, etc.).
 
@@ -802,7 +802,7 @@ result = a > b ? x = c > d ? c : d : y;
 
 ### Case Statements
 
-Braces are not required for `case` statements, unless enforced by complier.  Braces MUST be added for all `case` statements if they are required for at least one `case` statement. `default` statement MUST be always included.
+Braces are not required for `case` statements, unless enforced by complier.  Braces MUST be added for all `case` statements if they are required for at least one `case` statement. `default` statement MUST always be the last case and MUST always be included.
 
 **For example:**
 
@@ -871,7 +871,50 @@ switch (condition) {
         // ...
         break;
 }
+```
 
+## Error Handling
+
+When methods return an error parameter by reference, code MUST switch on the returned value and MUST NOT switch on the error variable.
+
+**For example:**
+
+```objc
+NSError *error;
+if (![self trySomethingWithError:&error]) {
+    // Handle Error
+}
+```
+
+**Not:**
+
+```objc
+NSError *error;
+[self trySomethingWithError:&error];
+if (error) {
+    // Handle Error
+}
+```
+
+Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
+
+## init and dealloc
+
+`dealloc` methods SHOULD be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements.
+
+ `init` methods SHOULD be placed directly below the `dealloc` methods of any class.
+`init` methods SHOULD return `instancetype` in general case and SHOULD be structured like this:
+
+**For example:**
+
+```objc
+- (instancetype)init {
+    self = [super init]; // or call the designated initializer
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 ```
 
 ## `CGRect` Functions
@@ -905,50 +948,6 @@ CGFloat maxY = frame.origin.y + frame.size.height;
 CGFloat width = frame.size.width;
 CGFloat height = frame.size.height;
 ```
-
-## init and dealloc
-
-`dealloc` methods SHOULD be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements.
-
- `init` methods SHOULD be placed directly below the `dealloc` methods of any class.
-`init` methods SHOULD return `instancetype` in general case and SHOULD be structured like this:
-
-**For example:**
-
-```objc
-- (instancetype)init {
-    self = [super init]; // or call the designated initializer
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-```
-
-## Error Handling
-
-When methods return an error parameter by reference, code MUST switch on the returned value and MUST NOT switch on the error variable.
-
-**For example:**
-
-```objc
-NSError *error;
-if (![self trySomethingWithError:&error]) {
-    // Handle Error
-}
-```
-
-**Not:**
-
-```objc
-NSError *error;
-[self trySomethingWithError:&error];
-if (error) {
-    // Handle Error
-}
-```
-
-Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
 
 ## Singletons
 
