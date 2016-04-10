@@ -26,7 +26,6 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Property Attributes](#property-attributes)
  * [Private Properties](#private-properties)
 * [Blocks](#blocks)
- * [Block types](#block-types)
  * [Block arguments](#block-arguments)
  * [Block as arguments](#block-as-arguments)
  * [Block as properties](#block-as-properties)
@@ -440,8 +439,8 @@ Types of blocks SHOULD be defined using a `typedef`, so that the type can be eas
 **For example:**
 
 ```objc
-typedef void (^SDCCompletion) (id object, NSError* error);
-SDCCompletionBlock block = ^ (id object, NSError* error) { 
+typedef void (^SDCCompletion) (id object, NSError *error);
+SDCCompletionBlock block = ^ (id object, NSError *error) { 
     // Do something.
 };
 ```
@@ -449,26 +448,53 @@ SDCCompletionBlock block = ^ (id object, NSError* error) {
 **Not:**
 
 ```objc
-void(^block)(id, NSError*) = ^void(id obj, NSError* error) { 
+void(^block)(id, NSError *) = ^void(id obj, NSError *error) { 
     // Do something.
 };
 ```
 
-### Block types
-
-TBD
-
 ### Block arguments
 
-TBD
+Block arguments SHOULD always be named so that they are filled in on autocomplete (Developers can rename the variables when using the block if they choose).
+
+**For example:**
+
+```objc
+typedef void (^SDCCompletion) (id object, NSError *error);
+```
+
+**Not:**
+```objc
+typedef void (^WMFCompletion) (id, NSError *);
+```
 
 ### Block as arguments
 
-TBD
+Block arguments SHOULD always be the last arguments for a method.
+
+**For example:**
+
+```objc
+// in the header
+- (void)doSomethingWithObject:(id)object success:(SDCSuccessCallback)success failure:(SDCFailureCallback))failure;
+
+// in use:
+[self doSomething:object success:^{ /* ... */ } failure:^{ /* ... */ }];
+```
 
 ### Block as properties
 
-TBD
+Blocks SHOULD always be copied when used outside the lexical scope in which they are declared, e.g. asynchronous completion blocks. This goes for storage in a property or in a collection (i.e. NSArray, NSDictionary, etc.).
+
+**For example:**
+
+```objc
+@interface SDCOperation : NSObject
+
+@property (copy, nonatomic) SDCCompletion completion;
+
+@end
+```
 
 ## Protocols
 
