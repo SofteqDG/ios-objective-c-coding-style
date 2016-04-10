@@ -18,6 +18,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Dot Notation Syntax](#dot-notation-syntax)
 * [Comments](#comments)
 * [Spacing](#spacing)
+* [Types](#types)
 * [Naming](#naming)
  * [Prefixes](#prefixes)
  * [Underscores](#underscores)
@@ -228,6 +229,11 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 @end
 ```
+## Types
+
+`NSInteger` and `NSUInteger` SHOULD be used instead of `int`, `long`, etc per Apple's best practices and 64-bit safety. `CGFloat` is preferred over `float` for the same reasons. This future proofs code for 64-bit platforms.
+
+All Apple types should be used over primitive ones. For example, if you are working with time intervals, use `NSTimeInterval` instead of `double` even though it is synonymous. This is considered best practice and makes for clearer code.
 
 ## Naming
 
