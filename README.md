@@ -25,6 +25,11 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Properties](#properties)
  * [Property Attributes](#property-attributes)
  * [Private Properties](#private-properties)
+* [Blocks](#blocks)
+ * [Block types](#block-types)
+ * [Block arguments](#block-arguments)
+ * [Block as arguments](#block-as-arguments)
+ * [Block as properties](#block-as-properties)
 * [Protocols](#protocols)
 * [Categories](#categories)
 * [Constants](#constants)
@@ -426,6 +431,44 @@ Private properties SHOULD be declared in class extensions (anonymous categories)
 
 @end
 ```
+
+
+## Blocks
+
+Types of blocks SHOULD be defined using a `typedef`, so that the type can be easily referenced in other places. Like constants, you SHOULD define your blocks as close to the code where they are used, like in the header of the class that uses them. Block definitions SHOULD also omit their return type when possible as well as their arguments when they are void. Block arguments SHOULD always be declared in the `typedef`.
+
+**For example:**
+
+```objc
+typedef void (^SDCCompletion) (id object, NSError* error);
+SDCCompletionBlock block = ^ (id object, NSError* error) { 
+    // Do something.
+};
+```
+
+**Not:**
+
+```objc
+void(^block)(id, NSError*) = ^void(id obj, NSError* error) { 
+    // Do something.
+};
+```
+
+### Block types
+
+TBD
+
+### Block arguments
+
+TBD
+
+### Block as arguments
+
+TBD
+
+### Block as properties
+
+TBD
 
 ## Protocols
 
