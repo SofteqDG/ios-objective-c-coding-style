@@ -37,9 +37,9 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Bitmasks](#bitmasks)
 * [Enumerated](#enumerated-types)
 * [Conditionals](#conditionals)
-* [Golden Path](#golden-path)
-* [Ternary Operator](#ternary-operator)
-* [Case Statements](#case-statements)
+ * [Golden Path](#golden-path)
+ * [Ternary Operator](#ternary-operator)
+ * [Case Statements](#case-statements)
 * [CGRect Functions](#cgrect-functions)
 * [Init & Dealloc](#init-and-dealloc)
 * [Error handling](#error-handling)
@@ -752,7 +752,7 @@ or
 if (!error) return success;
 ```
 
-## Golden Path
+### Golden Path
 
 When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are OK.
 
@@ -778,7 +778,7 @@ When coding with conditionals, the left hand margin of the code should be the "g
 }
 ```
 
-## Ternary Operator
+### Ternary Operator
 
 The intent of the ternary operator, `?` , is to increase clarity or code neatness. The ternary SHOULD only evaluate a single condition per expression. Evaluating multiple conditions is usually more understandable as an if statement or refactored into named variables. The ternary MUST be wrapped in the round braces.
 
@@ -800,7 +800,7 @@ result = (a ?: b);
 result = a > b ? x = c > d ? c : d : y;
 ```
 
-## Case Statements
+### Case Statements
 
 Braces are not required for `case` statements, unless enforced by complier.  Braces MUST be added for all `case` statements if they are required for at least one `case` statement. `default` statement MUST be always included.
 
