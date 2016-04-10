@@ -440,7 +440,7 @@ Types of blocks SHOULD be defined using a `typedef`, so that the type can be eas
 
 ```objc
 typedef void (^SDCCompletion) (id object, NSError *error);
-SDCCompletionBlock block = ^ (id object, NSError *error) { 
+SDCCompletionBlock block = ^(id object, NSError *error) { 
     // Do something.
 };
 ```
