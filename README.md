@@ -37,6 +37,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Bitmasks](#bitmasks)
 * [Enumerated](#enumerated-types)
 * [Conditionals](#conditionals)
+* [Golden Path](#golden-path)
 * [Ternary Operator](#ternary-operator)
 * [Case Statements](#case-statements)
 * [CGRect Functions](#cgrect-functions)
@@ -219,11 +220,10 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 **For example:**
 
 ```objc
-@implementaio SDCDownloader
+@implementation SDCDownloader
 @synthesize delegate = _delegate;
 @dynamic timeoutInterval;
 @dynamic someProperty;
-
 
 @end
 ```
@@ -750,6 +750,32 @@ or
 
 ```objc
 if (!error) return success;
+```
+
+## Golden Path
+
+When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are OK.
+
+**For example:**
+
+```objc
+- (void)someMethod {
+    if (![someOther boolValue]) {
+        return;
+    }
+
+    //Do something important
+}
+```
+
+**Not:**
+
+```objc
+- (void)someMethod {
+    if (![someOther boolValue]) {
+        //Do something important
+    }
+}
 ```
 
 ## Ternary Operator
