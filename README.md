@@ -247,9 +247,7 @@ UIButton *settingsButton;
 UIButton *settBut;
 ```
 
-Properties and local variables MUST be camel-case with the leading word being lowercase.
-
-Instance variables MUST be camel-case with the leading word being lowercase, and MUST be prefixed with an underscore. This is consistent with instance variables synthesized automatically by LLVM. **If LLVM can synthesize the variable automatically, then let it.**
+Properties and local variables MUST be camel-case with the leading word being lowercase. Instance variables MUST be camel-case with the leading word being lowercase, and MUST be prefixed with an underscore. This is consistent with instance variables synthesized automatically by LLVM. **If LLVM can synthesize the variable automatically, then let it.**
 
 **For example:**
 
@@ -1008,8 +1006,8 @@ Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#usin
 #import "SDCUser.h"
 
 // Views
-#import "SDCButton.h"
-#import "SDCUserView.h"
+#import "SDCUIButton.h"
+#import "SDCUIUserView.h"
 ```
 
 
