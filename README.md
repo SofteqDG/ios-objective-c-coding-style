@@ -19,6 +19,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Comments](#comments)
 * [Spacing](#spacing)
 * [Naming](#naming)
+ * [Prefixes](#prefixes)
  * [Underscores](#underscores)
 * [Methods](#methods)
 * [Variables](#variables)
@@ -246,20 +247,6 @@ UIButton *settingsButton;
 UIButton *settBut;
 ```
 
-A minimum three letter prefix (e.g., `SDC`) MUST be used for class names and constants, however MAY be omitted for Core Data entity names. Prefix MUST be used for all Core Data entity names if you decide to use it.  Constants MUST be camel-case with all words capitalized and prefixed by the related class name for clarity. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12).
-
-**For example:**
-
-```objc
-static const NSTimeInterval SDCFadeAnimationDuration = 0.3;
-```
-
-**Not:**
-
-```objc
-static const NSTimeInterval fadetime = 1.7;
-```
-
 Properties and local variables MUST be camel-case with the leading word being lowercase.
 
 Instance variables MUST be camel-case with the leading word being lowercase, and MUST be prefixed with an underscore. This is consistent with instance variables synthesized automatically by LLVM. **If LLVM can synthesize the variable automatically, then let it.**
@@ -275,6 +262,42 @@ Instance variables MUST be camel-case with the leading word being lowercase, and
 ```objc
 id varnm;
 ```
+
+### Prefixes
+
+A minimum three letter prefix (e.g., `SDC`) MUST be used for constants and class/protocol names. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12). Constants MUST be camel-case with all words capitalized and prefixed by the related class name for clarity. 
+
+**For example:**
+
+```objc
+static const NSTimeInterval SDCFadeAnimationDuration = 0.3;
+```
+
+**Not:**
+
+```objc
+static const NSTimeInterval fadetime = 1.7;
+```
+
+There MUST be additional UI prefix right after an app- or organization-specific prefix for classes which are designed to work as a visual components (buttons, labels, charts and etc.)
+
+**For example:**
+
+```objc
+@class SDCUIButton;
+@class SDCUIHomeViewController;
+@class SDCUINavigationController;
+```
+
+**Not:**
+
+```objc
+@class SDCButton;
+@class HomeViewController;
+@class SDCNavigationController;
+```
+
+Prefix MAY be omitted for Core Data entity names. However prefix MUST be used for all Core Data entity names if you decide to use it. 
 
 ### Underscores
 
