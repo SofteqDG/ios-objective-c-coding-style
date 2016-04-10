@@ -168,8 +168,7 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 * Indentation MUST use 4 spaces. Never indent with tabs. Be sure to set these preferences in the `Xcode → Preferences → Text Editing → Indentation`
 * There MUST be a blank line between the `@interface`, `@implementation`, `@protocol` statements and `@end` statement.
 * There MUST be a blank line before and after the  `@interface`, `@implementation`, `@protocol`,  `@end` statements.
-* There MUST NOT be a space between brackets and supported protocols declaration.
-* There MUST NOT be a space between object type and supported protocols for properties and variables. 
+
 
 **For example:**
 
@@ -188,24 +187,6 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 @property (assign, nonatomic) NSInteger timeoutInterval;
 @property (weak, nonatomic) id<SDCDownloaderDelegate> delegate;
-
-@end
-```
-
-**Not:**
-
-```objc
-@class SDCDownloader;
-@protocol SDCDownloaderDelegate;
-
-@protocol SDCDownloaderDelegate <NSObject>
-- (void)downloader:(SDCDownloader *)downloader didFinishDownloading:(NSURL *)fileURL;
-- (void)downloader:(SDCDownloader *)downloader didResumeDownloading:(NSURL *)fileURL;
-@end
-
-@interface SDCDownloader :NSObject
-@property (assign, nonatomic) NSInteger timeoutInterval;
-@property (weak, nonatomic) id < SDCDownloaderDelegate > delegate;
 
 @end
 ```
@@ -233,6 +214,19 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 ```
 
 * Prefer using auto-synthesis. But if necessary, `@synthesize` and `@dynamic` MUST each be declared on new lines in the implementation.
+
+
+**For example:**
+
+```objc
+@implementaio SDCDownloader
+@synthesize delegate = _delegate;
+@dynamic timeoutInterval;
+@dynamic someProperty;
+
+
+@end
+```
 
 ## Naming
 
