@@ -23,6 +23,8 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Prefixes](#prefixes)
  * [Underscores](#underscores)
 * [Methods](#methods)
+ * [Declaration](#declaration)
+ * [Definition](#definition)
 * [Variables](#variables)
 * [Properties](#properties)
  * [Property Attributes](#property-attributes)
@@ -237,9 +239,7 @@ All Apple types should be used over primitive ones. For example, if you are work
 
 ## Naming
 
-Apple naming conventions SHOULD be adhered to wherever possible, especially those related to [memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508)).
-
-Long, descriptive method and variable names are good.
+Apple naming conventions SHOULD be adhered to wherever possible, especially those related to [memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508)). Long, descriptive method and variable names are good.
 
 **For example:**
 
@@ -313,7 +313,10 @@ Local variables SHOULD NOT contain underscores.
 
 ## Methods
 
-In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD NOT be a space between returned type and first method segment. There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
+Your class interfaces SHOULD ONLY contain methods that need to be exposed publicly. All other code SHOULD be in the implementation file. All methods SHOULD be clearly named and MAY be commented so that documentation can be generated automatically.
+
+### Declaration
+n method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD NOT be a space between returned type and first method segment. There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
 
 The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
@@ -321,7 +324,6 @@ The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple par
 
 ```objc
 - (void)setExampleText:(NSString *)text image:(UIImage *)image;
-- (void)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;
 - (id)viewWithTag:(NSInteger)tag;
 - (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;
 ```
@@ -329,23 +331,10 @@ The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple par
 **Not:**
 
 ```objc
-- (void)setT:(NSString *)text i:(UIImage *)image;
-- (void)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;
+- (void)setT:(NSString *)text :(UIImage *)image;
 - (id)taggedView:(NSInteger)tag;
 - (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;
 - (instancetype)initWith:(int)width and:(int)height;  // Never do this.
-```
-
-Use `NSParameterAssert` for arguments that are critical for correct method execution.
-
-**For example:**
-
-```objc
-- (void)parseData:(NSData *)data {
-    NSParameterAssert(data);
-    
-    // Parsing logic
-}
 ```
 
 Use `NS_UNAVAILABLE` macro in the method signature if you need to "block" method calls on your interface.
@@ -364,6 +353,38 @@ Use `NS_REQUIRES_SUPER` macro in the method signature if the `super` method need
 - (void)someMethod NS_REQUIRES_SUPER;
 ```
 
+### Definition
+
+Method definitions SHOULD follow the same indentation rules as declaration, with the opening brace on the sane line as the method signature.
+
+**For example:**
+
+```objc
+- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height {
+    // Do something
+}
+```
+
+**Not:**
+
+```objc
+- (instancetype) initWithWidth:(CGFloat)width :(CGFloat)height
+{
+    // Do something
+}
+```
+
+You CAN use `NSParameterAssert` macro for arguments that are critical for correct method execution.
+
+**For example:**
+
+```objc
+- (void)parseData:(NSData *)data {
+    NSParameterAssert(data);
+    
+    // Parsing logic
+}
+```
 
 ## Variables
 
