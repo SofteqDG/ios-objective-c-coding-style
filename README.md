@@ -171,7 +171,31 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 ## Spacing
 
+* Binary operands MUST be separated with a single space.
+* Unary operands and type casts MUST NOT be separated.
+* Single space MUST be added between keywords and their parentheses.
+* Spaces MUST NOT be added between parentheses and their contents.
+* All curly braces MUST begin on the same line as their associated statement and end on the new line.
+* There MUST be a single space before opening brace.
 * Indentation MUST use 4 spaces. Never indent with tabs. Be sure to set these preferences in the `Xcode → Preferences → Text Editing → Indentation`
+
+**For example:**
+
+```
+void someMethod(unsigned int value) {
+    void *ptr = &value + 10 * 3;
+    NewType a = (NewType)b;
+
+    for (int i = 0; i < 10; i++) {
+        if (i % 2) {
+            [self doCalculations:i];
+        } else {
+            // Some other stuff
+        }
+    }
+}
+```
+
 * There MUST be a blank line between the `@interface`, `@implementation`, `@protocol` statements and `@end` statement.
 * There MUST be a blank line before and after the  `@interface`, `@implementation`, `@protocol`,  `@end` statements.
 
@@ -196,7 +220,6 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 @end
 ```
 
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) MUST open on the same line as the statement. There MUST be a space before opening brace. Braces MUST close on a new line.
 * There MUST be exactly one blank line between methods to aid in visual clarity and organization.
 * Whitespace within methods MAY separate functionality, though this inclination often indicates an opportunity to split the method into several, smaller methods.
 
@@ -207,8 +230,7 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 	// Do something
 	if (user.isHappy) {
 		// Do something
-	}
-	else {
+	} else {
 		// Do something else
 	}
 }
@@ -654,7 +676,7 @@ Methods and properties added in categories MUST be named with an app- or organiz
 @end
 ```
 
-Anonymous categories SHOULD be used for private methods, properties, variables and SHOULD be placed only in the implementation file of a class.
+Anonymous categories SHOULD be used only for private methods, properties, variables and SHOULD be placed only in the implementation file of a class.
 
 **For example:**
 
@@ -730,7 +752,7 @@ NSArray *numbers = [NSArray arrayWithObjects:@8, @16, @(32), @(64), @(SDCSomeTyp
 NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @"Kate", @"iPhone", @"Kamal", @"iPad", @"Bill", @"Mobile Web", nil];
 ```
 
-Longer or more complex literals SHOULD be split over multiple lines and aligned by the first value.
+Longer or more complex literals SHOULD be split over multiple lines and aligned by the first value. There SHOULD NOT be a space after the opening brace and before the closing brace.
 
 **For Example:**
 
@@ -773,16 +795,6 @@ if (!someNumber.boolValue)
 if (someNumber.boolValue == NO)
 if (isAwesome == YES) // Never do this.
 ```
-
-If the name of a `BOOL` property is expressed as an adjective, the property’s name MAY omit the `is` prefix but CAN specify the conventional name for the getter.
-
-**For example:**
-
-```objc
-@property (assign, nonatomic, getter=isEditable) BOOL editable;
-```
-
-_Text and example taken from the [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE)._
 
 ## Bitmasks
 
