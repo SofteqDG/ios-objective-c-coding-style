@@ -383,7 +383,6 @@ You CAN use `NSParameterAssert` macro for arguments that are critical for correc
 ```objc
 - (void)parseData:(NSData *)data {
     NSParameterAssert(data);
-    
     // Parsing logic
 }
 ```
