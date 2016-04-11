@@ -853,6 +853,10 @@ When coding with conditionals, the left hand margin of the code should be the "g
     if (!parentObject) {
         return NO;
     }
+    id childObject = [self firstChildObject];
+    if (!childObject) {
+        return NO;
+    }
     // Do something important
     return YES;
 }
@@ -865,8 +869,11 @@ When coding with conditionals, the left hand margin of the code should be the "g
     if (self.isExecuting) {
         id parentObject = [self getParentObject];
         if (parentObject) {
-            // Do something important
-            return YES;
+            id childObject = [self firstChildObject];
+            if (childObject) {
+                // Do something important
+                return YES;
+            }
         }
     }
     return NO;
