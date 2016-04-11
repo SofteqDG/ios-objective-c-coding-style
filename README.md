@@ -1,4 +1,4 @@
-﻿# SOFTEQ Objective-C Style Guide
+# SOFTEQ Objective-C Style Guide
 
 This style guide outlines the coding conventions of the iOS teams at SOFTEQ Development Corporation. 
 
@@ -69,7 +69,7 @@ UIColor *myColour = [UIColor whiteColor];
 
 ## Code Organization
 
-Length of the one line of code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code does not fit in 120 symbols:
+Length of the one line with code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code does not fit in 120 symbols:
 
 **TBD**
 
@@ -174,7 +174,6 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 * There MUST be a blank line between the `@interface`, `@implementation`, `@protocol` statements and `@end` statement.
 * There MUST be a blank line before and after the  `@interface`, `@implementation`, `@protocol`,  `@end` statements.
 
-
 **For example:**
 
 ```objc
@@ -220,7 +219,6 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 * Prefer using auto-synthesis. But if necessary, `@synthesize` and `@dynamic` MUST each be declared on new lines in the implementation.
 
-
 **For example:**
 
 ```objc
@@ -231,6 +229,7 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 @end
 ```
+
 ## Types
 
 `NSInteger` and `NSUInteger` SHOULD be used instead of `int`, `long`, etc per Apple's best practices and 64-bit safety. `CGFloat` is preferred over `float` for the same reasons. This future proofs code for 64-bit platforms.
@@ -316,7 +315,7 @@ Local variables SHOULD NOT contain underscores.
 Your class interfaces SHOULD ONLY contain methods that need to be exposed publicly. All other code SHOULD be in the implementation file. All methods SHOULD be clearly named and MAY be commented so that documentation can be generated automatically.
 
 ### Declaration
-n method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD NOT be a space between returned type and first method segment. There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
+In method signatures, there SHOULD be a space after the method type (-/+ symbol). There SHOULD NOT be a space between returned type and first method segment. There SHOULD be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument. 
 
 The usage of the word "and" is reserved.  It SHOULD NOT be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
@@ -507,7 +506,7 @@ typedef void (^SDCCompletion) (id object, NSError *error);
 
 **Not:**
 ```objc
-typedef void (^WMFCompletion) (id, NSError *);
+typedef void (^SDCCompletion) (id, NSError *);
 ```
 
 ### Blocks as arguments
@@ -581,9 +580,7 @@ Each protocol SHOULD be inherited from `NSObject` protocol unless you have a ser
 @end
 ```
 
-In a [delegate or data source protocol](https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html), the first parameter to each method MUST be the object sending the message.
-
-This helps disambiguate in cases when an object is the delegate for multiple similarly-typed objects, and it helps clarify intent to readers of a class implementing these delegate methods.
+In a [delegate or data source protocol](https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html), the first parameter to each method MUST be the object sending the message. This helps disambiguate in cases when an object is the delegate for multiple similarly-typed objects, and it helps clarify intent to readers of a class implementing these delegate methods.
 
 **For example:**
 
@@ -614,7 +611,7 @@ This helps disambiguate in cases when an object is the delegate for multiple sim
 ## Categories
 
 Categories are RECOMMENDED to concisely segment functionality and should be named to describe that functionality. 
-* There SHOULD be a space between interface name and protocol name.
+* There SHOULD be a space between interface name and category name.
 * There SHOULD NOT be a space between braces and a name of category.
 
 **For example:**
@@ -662,7 +659,7 @@ Constants are RECOMMENDED over in-line string literals or numbers, as they allow
 ```objc
 static NSString * const SDCAboutViewControllerCompanyName = @"SOFTEQ Development Corporation";
 
-static const CGFloat SDCImageThumbnailHeight = 50.0;
+static const CGFloat SDCImageThumbnailHeight = 50.0f;
 ```
 
 **Not:**
@@ -673,7 +670,7 @@ static const CGFloat SDCImageThumbnailHeight = 50.0;
 #define thumbnailHeight 2
 ```
 
-Public constants of interface MUST be declared as `extern` in the header file. You CAN use `FOUNDATION_EXTERN` macro for such constants.
+Public constants of class MUST be declared as `extern` in the header file. You CAN use `FOUNDATION_EXTERN` macro for such constants.
 
 **For example:**
 
