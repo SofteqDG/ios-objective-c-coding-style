@@ -1095,3 +1095,15 @@ Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#usin
 The physical files SHOULD be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created SHOULD be reflected by folders in the filesystem. Code SHOULD be grouped not only by type, but also by feature for greater clarity.
 
 Target Build Setting “Treat Warnings as Errors” SHOULD be enabled. Enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang’s pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+
+If project configured to work with [CocoaPods](https://cocoapods.org/) then all warning CAN be disabled for all or some pods. Add next lines to the pod file in order to disable warnings:
+
+```
+platform :ios
+
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
+# ignore warnings from a specific pod
+pod 'FBSDKCoreKit', :inhibit_warnings => true
+```
