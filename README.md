@@ -296,6 +296,39 @@ Properties and local variables MUST be camel-case with the leading word being lo
 id varnm;
 ```
 
+Class/protocol names SHOULD be self descriptive. An additional UI prefix (prefix right after an app- or organization-specific prefix) is RECOMMENDED if class is inherited from ui components (buttons, labels, views). It is RECOMMENDED to add an base class description in the name of your class.
+
+```objc
+@interface SDCDownloadManager : NSObject
+
+@end
+
+@interface SDCUIUserView : UIView
+
+@end
+
+@interface SDCUIHomeViewController : UIViewController
+
+@end
+```
+
+**Not:**
+
+```objc
+@interface SDCManager : NSObject
+
+@end
+
+@interface SDCUserView : UIView
+
+@end
+
+@interface SDCHomeController : UIViewController
+
+@end
+```
+
+
 ### Prefixes
 
 A minimum three letter prefix (e.g., `SDC`) MUST be used for constants and class/protocol names. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12). Constants MUST be camel-case with all words capitalized and prefixed by the related class name for clarity. 
@@ -310,24 +343,6 @@ static const NSTimeInterval SDCFadeAnimationDuration = 0.3;
 
 ```objc
 static const NSTimeInterval fadetime = 1.7;
-```
-
-There MUST be additional UI prefix right after an app- or organization-specific prefix for classes which are designed to work as a visual components (buttons, labels, charts and etc.)
-
-**For example:**
-
-```objc
-@class SDCUIButton;
-@class SDCUIHomeViewController;
-@class SDCUINavigationController;
-```
-
-**Not:**
-
-```objc
-@class SDCButton;
-@class HomeViewController;
-@class SDCNavigationController;
 ```
 
 Prefix MAY be omitted for Core Data entity names. However prefix MUST be used for all Core Data entity names if you decide to use it. 
