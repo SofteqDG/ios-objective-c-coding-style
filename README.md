@@ -72,7 +72,12 @@ UIColor *myColour = [UIColor whiteColor];
 
 Length of the one line with code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code does not fit in 120 symbols:
 
-**(???)**
+* Reduce nested code statements.
+* Rename your method. Remember that all method names SHOULD be descriptive.
+* Rename your method arguments or local variables. Remember that all names SHOULD be descriptive.
+* Make multi-line call/declaration by reformatting arguments by colon using Xcode.
+
+**ADD EXAMPLE**
 
 Use `#warning` or `#pragma message` directives instead of `TODO` comments. However be careful with `#warning` directive because it can be treated as a error depending on build settings.
 
@@ -230,7 +235,7 @@ void someMethod(unsigned int value) {
 	// Do something
 	if (user.isHappy) {
 		// Do something
-	} else {
+	} else if (user.isBoring) {
 		// Do something else
 	}
 }
@@ -429,7 +434,7 @@ Asterisks indicating a type is a pointer MUST be “attached to” the variable 
 
 ### Variable Qualifiers
 
-When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifier (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) SHOULD be placed between the asterisks and the variable name, e.g., `NSString * __weak text`.  **(???)**
+When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifier (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) SHOULD be placed between the asterisks and the variable name, e.g., `NSString * __weak text`. 
 
 ## Properties
 
