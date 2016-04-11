@@ -714,7 +714,8 @@ NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @"Ka
 Longer or more complex literals SHOULD be split over multiple lines and aligned by the first value.
 
 **For Example:**
-```
+
+```objc
 NSArray *names = @[@"Kate",
                    @"Kamal",
                    @"Bill"];
