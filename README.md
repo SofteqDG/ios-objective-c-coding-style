@@ -434,9 +434,7 @@ The order of property attributes should be:
 1. storage (`weak`, `strong`, `assign`)
 2. atomicity (`atomic`, `nonatomic`)
 3. mutability (`readonly`, `readwrite`)
-4. custom getter/setter
-
-This order is consistent with automatically generated code when connecting UI elements from Interface Builder.
+4. custom getter/setter (`getter=`, `setter=`)
 
 **For Example:**
 
@@ -624,7 +622,7 @@ Categories are RECOMMENDED to concisely segment functionality and should be name
 **Not:**
 
 ```objc
-@interface SDCAdvertisement ( private )
+@interface SDCAdvertisement ( protected )
 @interface NSString(SDCAdditions)
 ```
 
@@ -646,6 +644,21 @@ Methods and properties added in categories MUST be named with an app- or organiz
 @interface NSArray (SDCAccessors)
 
 - (id)objectOrNilAtIndex:(NSUInteger)index;
+
+@end
+```
+
+Anonymous categories SHOULD be used for private methods, properties, variables and SHOULD be placed only in the implementation file of a class.
+
+**For example:**
+
+```objc
+// Implementation file.
+@interface SDCAdvertisement ()
+
+@end
+
+@implementation SDCAdvertisement
 
 @end
 ```
@@ -825,22 +838,31 @@ When coding with conditionals, the left hand margin of the code should be the "g
 **For example:**
 
 ```objc
-- (void)someMethod {
-    if (![someOther boolValue]) {
-        return;
+- (BOOL)someMethod {
+    if (!self.isExecuting) {
+        return NO;
     }
-
-    //Do something important
+    id parentObject = [self getParentObject];
+    if (!parentObject) {
+        return NO;
+    }
+    // Do something important
+    return YES;
 }
 ```
 
 **Not:**
 
 ```objc
-- (void)someMethod {
-    if (![someOther boolValue]) {
-        //Do something important
+- (BOOL)someMethod {
+    if (self.isExecuting) {
+        id parentObject = [self getParentObject];
+        if (parentObject) {
+            // Do something important
+            return YES;
+        }
     }
+    return NO;
 }
 ```
 
@@ -941,7 +963,7 @@ switch (condition) {
 
 ## Error Handling
 
-When methods return an error parameter by reference, code MUST switch on the returned value and MUST NOT switch on the error variable.
+When methods return an error parameter by reference, code SHOULD switch on the returned value and SHOULD NOT switch on the error variable.
 
 **For example:**
 
@@ -985,7 +1007,7 @@ Some of Apple’s APIs write garbage values to the error parameter (if non-NULL)
 
 ## `CGRect` Functions
 
-When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, code MUST use the [`CGGeometry` functions](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) instead of direct struct member access. From Apple's `CGGeometry` reference:
+When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, code SHOULD use the [`CGGeometry` functions](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) instead of direct struct member access whenever it possible. From Apple's `CGGeometry` reference:
 
 > All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
 
