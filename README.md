@@ -26,6 +26,7 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Declaration](#declaration)
  * [Definition](#definition)
 * [Variables](#variables)
+ * [Variable Qualifiers](#variable-qualifiers)
 * [Properties](#properties)
  * [Property Attributes](#property-attributes)
  * [Private Properties](#private-properties)
@@ -71,7 +72,7 @@ UIColor *myColour = [UIColor whiteColor];
 
 Length of the one line with code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code does not fit in 120 symbols:
 
-**TBD**
+**(???)**
 
 Use `#warning` or `#pragma message` directives instead of `TODO` comments. However be careful with `#warning` directive because it can be treated as a error depending on build settings.
 
@@ -95,7 +96,7 @@ Use `#error` directive if you need to break a build process under some circumsta
 #endif
 ```
 
-Use `#pragma mark` directive to categorize methods in functional groupings and protocol/delegate implementations. There MUST be one blank line before and after `#pragma mark` directive or set of such directives.
+Use `#pragma mark` directive to categorize methods in functional groupings and protocol/delegate implementations. Each `#pragma mark` directive SHOULD have a dash (`-`) before description and a white spaces around this dash. There MUST be one blank line before and after `#pragma mark` directive or set of such directives.
 
 **For example:**
 
@@ -234,7 +235,9 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 `NSInteger` and `NSUInteger` SHOULD be used instead of `int`, `long`, etc per Apple's best practices and 64-bit safety. `CGFloat` is preferred over `float` for the same reasons. This future proofs code for 64-bit platforms.
 
-All Apple types should be used over primitive ones. For example, if you are working with time intervals, use `NSTimeInterval` instead of `double` even though it is synonymous. This is considered best practice and makes for clearer code.
+All Apple types SHOULD be used over primitive ones. For example, if you are working with time intervals, use `NSTimeInterval` instead of `double` even though it is synonymous. This is considered best practice and makes for clearer code.
+
+However primitive types such as `int`, `uint8_t`, `int16_t` and etc. SHOULD be used if your code is sensitive to the size of the data you are working with (BLOBs, C Style structs and etc.).
 
 ## Naming
 
@@ -402,6 +405,10 @@ Variables SHOULD be named descriptively, with the variable’s name clearly comm
 Single letter variable names are NOT RECOMMENDED, except as simple counter variables in loops.
 
 Asterisks indicating a type is a pointer MUST be “attached to” the variable name. **For example,** `NSString *text` **not** `NSString* text` or `NSString * text`, except in the case of constants (`NSString * const SDCConstantString`).
+
+### Variable Qualifiers
+
+When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifier (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) SHOULD be placed between the asterisks and the variable name, e.g., `NSString * __weak text`.  **(???)**
 
 ## Properties
 
