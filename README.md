@@ -686,22 +686,42 @@ const CGFloat SDCImageThumbnailHeight = 50.0f;
 
 `NSString`, `NSDictionary`, `NSArray`, and `NSNumber` literals SHOULD be used whenever creating immutable instances of those objects. Pay special care that `nil` values not be passed into `NSArray` and `NSDictionary` literals, as this will cause a crash.
 
+* All number values (raw numbers, enum values, bools) MUST be wrapped in braces.
+* Avoid making numbers a specific type unless necessary (for example, prefer 5 to 5.0, and 5.3 to 5.3f).
+* The contents of array and dictionary literals SHOULD NOT have a space between opening and closing braces.
+* Dictionary literals SHOULD NOT have a space between the key and the colon, and SHOULD have a single space between colon and value.
+
 **For example:**
 
 ```objc
+NSNumber *shouldUseLiterals = @(YES);
+NSNumber *buildingZIPCode = @(10018);
 NSArray *names = @[@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul"];
+NSArray *numbers = @[@(8), @(16), @(32), @(64), @(SDCSomeTypeValue), @(YES), @(NO)];
 NSDictionary *productManagers = @{@"iPhone": @"Kate", @"iPad": @"Kamal", @"Mobile Web": @"Bill"};
-NSNumber *shouldUseLiterals = @YES;
-NSNumber *buildingZIPCode = @10018;
 ```
 
 **Not:**
 
 ```objc
-NSArray *names = [NSArray arrayWithObjects:@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul", nil];
-NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @"Kate", @"iPhone", @"Kamal", @"iPad", @"Bill", @"Mobile Web", nil];
 NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
 NSNumber *buildingZIPCode = [NSNumber numberWithInteger:10018];
+NSArray *names = [NSArray arrayWithObjects:@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul", nil];
+NSArray *numbers = [NSArray arrayWithObjects:@8, @16, @(32), @(64), @(SDCSomeTypeValue), @YES, @NO];
+NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @"Kate", @"iPhone", @"Kamal", @"iPad", @"Bill", @"Mobile Web", nil];
+```
+
+Longer or more complex literals SHOULD be split over multiple lines and aligned by the first value.
+
+**For Example:**
+```
+NSArray *names = @[@"Kate",
+                   @"Kamal",
+                   @"Bill"];
+
+NSDictionary *productManagers = @{@"iPhone": @"Kate",
+                                  @"iPad": @"Kamal",
+                                  @"Mobile Web": @"Bill"};
 ```
 
 ## Booleans
@@ -1033,7 +1053,6 @@ Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#usin
 #import "SDCUIButton.h"
 #import "SDCUIUserView.h"
 ```
-
 
 ## Xcode project
 
