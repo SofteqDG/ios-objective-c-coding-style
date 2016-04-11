@@ -181,7 +181,7 @@ Block comments are NOT RECOMMENDED, as code SHOULD be as self-documenting as pos
 
 **For example:**
 
-```
+```objc
 void someMethod(unsigned int value) {
     void *ptr = &value + 10 * 3;
     NewType a = (NewType)b;
