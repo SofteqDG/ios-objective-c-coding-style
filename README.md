@@ -73,11 +73,9 @@ UIColor *myColour = [UIColor whiteColor];
 Length of the one line with code SHOULD be limited to **120** symbols to aid in visual clarity and organization. You can enable `Xcode → Preferences → Text Editing → Editing → Page guide at column` preference to assist you with this rule. What you can do if your code does not fit in 120 symbols:
 
 * Reduce nested code statements.
-* Rename your method. Remember that all method names SHOULD be descriptive.
-* Rename your method arguments or local variables. Remember that all names SHOULD be descriptive.
+* Use ` typedef ` for block arguments.
+* Rename your method, arguments, local variables. Remember that all method names SHOULD be descriptive.
 * Make multi-line call/declaration by reformatting arguments by colon using Xcode.
-
-**ADD EXAMPLE**
 
 Use `#warning` or `#pragma message` directives instead of `TODO` comments. However be careful with `#warning` directive because it can be treated as a error depending on build settings.
 
@@ -301,7 +299,7 @@ Follow next rules for class/protocol naming:
 * Class/protocol name SHOULD be started with an app- or organization-specific prefix.
 * If subclassing, make it obvious by using the superclasses name in the new name.
 
-**For Example:**
+**For example:**
 
 
 ```objc
