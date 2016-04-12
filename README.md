@@ -1003,11 +1003,15 @@ switch (condition) {
 
 ## Error Handling
 
-When methods return an error parameter by reference, code SHOULD switch on the returned value and SHOULD NOT switch on the error variable.
+Errors MUST be always handled. It is RECOMMENDED to switch on returned value instead of an error parameter passed by reference. Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
 
 **For example:**
 
 ```objc
+// Method declaration.
+- (BOOL)trySomethingWithError:(NSError **)error;
+
+// Recommended way to handle errors.
 NSError *error;
 if (![self trySomethingWithError:&error]) {
     // Handle Error
@@ -1017,14 +1021,19 @@ if (![self trySomethingWithError:&error]) {
 **Not:**
 
 ```objc
+// Method declaration.
+- (BOOL)trySomethingWithError:(NSError **)error;
+
+// NOT RECOMMENDED way to handle errors.
 NSError *error;
 [self trySomethingWithError:&error];
 if (error) {
     // Handle Error
 }
+
 ```
 
-Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
+However there are can be situations in which this rule CAN NOT be applied and you CAN NOT rely on returned value. 
 
 ## init and dealloc
 
