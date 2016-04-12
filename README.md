@@ -26,6 +26,7 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Declaration](#declaration)
  * [Definition](#definition)
 * [Variables](#variables)
+ * [Declaration](#declaration)
 * [Properties](#properties)
  * [Property Attributes](#property-attributes)
  * [Private Properties](#private-properties)
@@ -445,6 +446,35 @@ Variables SHOULD be named descriptively, with the variable’s name clearly comm
 Single letter variable names are NOT RECOMMENDED, except as simple counter variables in loops.
 
 Asterisks indicating a type is a pointer MUST be “attached to” the variable name. **For example,** `NSString *text` **not** `NSString* text` or `NSString * text`, except in the case of constants (`NSString * const SDCConstantString`).
+
+### Declaration
+
+Declaration of local variables is RECOMMENDED to be done closely to place where they are used.
+
+**For example:**
+```objc
+- (void)someMethod {
+
+   // Do something
+   BOOL hasParent = (self.parentObject != nil);
+   if (hasParent) {
+       // Do something with parent object.
+   }
+}
+```
+
+**Not:**
+```objc
+- (void)someMethod {
+   BOOL hasParent = NO;
+
+   // Do something
+   hasParent = (self.parentObject != nil);
+   if (hasParent) {
+       // Do something with parent object.
+   }
+}
+```
 
 ## Properties
 
