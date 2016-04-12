@@ -301,6 +301,8 @@ Follow next rules for class/protocol naming:
 * Class/protocol name SHOULD be started with an app- or organization-specific prefix.
 * If subclassing, make it obvious by using the superclasses name in the new name.
 
+**For Example:**
+
 
 ```objc
 @interface SDCDownloadManager : NSObject
