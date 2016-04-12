@@ -399,7 +399,7 @@ Use `NS_REQUIRES_SUPER` macro in the method signature if the `super` method need
 
 ### Definition
 
-It is RECOMMENDED to avoid empty/dummy method declarations. However empty/dummy methods CAN be used if your class conforms to specific protocol but doesn't do anything within specific method. Method definitions SHOULD follow the same indentation rules as declaration, with the opening brace on the sane line as the method signature.
+It is RECOMMENDED to avoid empty/dummy method definitions. However empty/dummy methods CAN be used if your class conforms to specific protocol but doesn't do anything within specific method. Method definitions SHOULD follow the same indentation rules as declaration, with the opening brace on the sane line as the method signature.
 
 **For example:**
 
