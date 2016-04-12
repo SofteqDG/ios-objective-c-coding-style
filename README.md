@@ -26,7 +26,7 @@ Here are some of the documents from Apple that informed the style guide. If some
  * [Declaration](#declaration)
  * [Definition](#definition)
 * [Variables](#variables)
- * [Declaration](#declaration)
+ * [Declarations](#declarations)
 * [Properties](#properties)
  * [Property Attributes](#property-attributes)
  * [Private Properties](#private-properties)
@@ -447,7 +447,7 @@ Single letter variable names are NOT RECOMMENDED, except as simple counter varia
 
 Asterisks indicating a type is a pointer MUST be “attached to” the variable name. **For example,** `NSString *text` **not** `NSString* text` or `NSString * text`, except in the case of constants (`NSString * const SDCConstantString`).
 
-### Declaration
+### Declarations
 
 Declaration of local variables is RECOMMENDED to be done closely to place where they are used.
 
@@ -721,13 +721,13 @@ Methods and properties added in categories MUST be named with an app- or organiz
 @end
 ```
 
-Anonymous categories SHOULD be used only for private methods, properties, variables and SHOULD be placed only in the implementation file of a class.
+Anonymous categories SHOULD be placed only in the implementation file of a class. Private (not publicly visible) methods, properties, conformed protocols SHOULD be listed in anonymous categories.
 
 **For example:**
 
 ```objc
 // Implementation file.
-@interface SDCAdvertisement ()
+@interface SDCAdvertisement () <NSXMLParser>
 
 @end
 
