@@ -307,7 +307,7 @@ Follow next rules for class/protocol naming:
 
 @end
 
-@interface SDCUIUserView : UIView
+@interface SDCUserView : UIView
 
 @end
 
