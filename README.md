@@ -296,7 +296,11 @@ Properties and local variables MUST be camel-case with the leading word being lo
 id varnm;
 ```
 
-Class/protocol names SHOULD be self descriptive. An additional UI prefix (prefix right after an app- or organization-specific prefix) is RECOMMENDED if class is inherited from ui components (buttons, labels, views). It is RECOMMENDED to add an base class description in the name of your class.
+Follow next rules for class/protocol naming:
+* Class names SHOULD be as descriptive as possible, avoid shorthand and abbreviations.
+* Class/protocol name SHOULD be started with an app- or organization-specific prefix.
+* If subclassing, make it obvious by using the superclasses name in the new name.
+
 
 ```objc
 @interface SDCDownloadManager : NSObject
@@ -307,7 +311,7 @@ Class/protocol names SHOULD be self descriptive. An additional UI prefix (prefix
 
 @end
 
-@interface SDCUIHomeViewController : UIViewController
+@interface SDCHomeViewController : UIViewController
 
 @end
 ```
@@ -319,11 +323,11 @@ Class/protocol names SHOULD be self descriptive. An additional UI prefix (prefix
 
 @end
 
-@interface SDCUserView : UIView
+@interface SDCUsrView : UIView
 
 @end
 
-@interface SDCHomeController : UIViewController
+@interface SDCHomeVC : UIViewController
 
 @end
 ```
@@ -738,14 +742,30 @@ Anonymous categories SHOULD be placed only in the implementation file of a class
 
 ## Constants
 
-Constants are RECOMMENDED over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants MUST be declared as `static` constants. Constants MAY be declared as `#define` when explicitly being used as a macro.
+Constants are RECOMMENDED over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace.
+Follow next rules for constants naming and declaration:
+
+* Constants names SHOULD be as descriptive as possible, avoid shorthand and abbreviations.
+* Constants names SHOULD be started with an app- or organization-specific prefix.
+* Constants names SHOULD have a class description it belongs to.
+* Constants MUST be declared as `static` constants. 
+* Constants MAY be declared as `#define` when explicitly being used as a macro.
 
 **For example:**
 
 ```objc
+static NSString const * SDCPhoneNumberCellIdentifier = @"phoneNumberCellIdentifier";
+static const CGFloat SDCImageThumbnailHeight = 50.0f;
+```
+
+or
+
+```objc
 static NSString * const SDCAboutViewControllerCompanyName = @"SOFTEQ Development Corporation";
 
-static const CGFloat SDCImageThumbnailHeight = 50.0f;
+@interface SDCAboutViewController : UIViewController
+
+@end
 ```
 
 **Not:**
@@ -762,10 +782,14 @@ Public constants of class MUST be declared as `extern` in the header file. You C
 
 ```objc
 // Declaration in the header file.
-FOUNDATION_EXTERN const CGFloat SDCImageThumbnailHeight;
+FOUNDATION_EXTERN NSString * const SDCAboutViewControllerCompanyName;
+
+@interface SDCAboutViewController : UIViewController
+
+@end
 
 // Definition in the implementation file.
-const CGFloat SDCImageThumbnailHeight = 50.0f;
+NSString * const SDCAboutViewControllerCompanyName = @"SOFTEQ Development Corporation";
 ```
 
 ## Literals
