@@ -1186,6 +1186,10 @@ The physical files SHOULD be kept in sync with the Xcode project files in order 
 
 Target Build Setting “Treat Warnings as Errors” SHOULD be enabled. Enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang’s pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
 
+All project schemes except of schemes from pods or schemes from external projects MUST be marked as shared. It's a requirement for CI systems such as Jenkins. You can do it in the "manage schemes" window.
+
+![xcode_manage_schemes](/xcode_manage_schemes.png)
+
 If project configured to work with [CocoaPods](https://cocoapods.org/) then all warning CAN be disabled for all or some pods. Add next lines to the pod file in order to disable warnings:
 
 ```
