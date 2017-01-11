@@ -50,6 +50,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [CGRect Functions](#cgrect-functions)
 * [Singletons](#singletons)
 * [Imports](#imports)
+* [Copyrights](#Copyrights)
 * [Xcode Project](#xcode-project)
 
 ## Language
@@ -1179,6 +1180,24 @@ Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#usin
 #import "SDCUIButton.h"
 #import "SDCUIUserView.h"
 ```
+
+## Copyrights
+
+In the beginning of each source file that was created by Softeq team on the project there MUST be the following comment header added:
+
+```objc
+// Developed for [customer name] by Softeq Development Corporation
+// http://www.softeq.com
+```
+
+**For example:**
+
+```objc
+// Developed for NVIDIA by Softeq Development Corporation
+// http://www.softeq.com
+```
+
+Where [customer name] - the name of a client company (or the name of a client if he doesn’t represent a company). This name can be taken from JIRA or you can ask PM of the project. The name of a company (or the name a client) must be grammatically correct, it’s a very important point for a client. Please note that if your IDE doesn’t support automatic filling of the [customer name] value during the file creation, you should fill this value manually after copy-pasting.
 
 ## Xcode project
 
