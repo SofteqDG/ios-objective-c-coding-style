@@ -50,7 +50,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [CGRect Functions](#cgrect-functions)
 * [Singletons](#singletons)
 * [Imports](#imports)
-* [Copyrights](#Copyrights)
+* [Copyrights](#copyrights)
 * [Xcode Project](#xcode-project)
 
 ## Language
